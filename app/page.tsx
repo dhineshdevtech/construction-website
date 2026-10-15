@@ -1,6 +1,7 @@
 import HeroConstructionScroll from "@/components/HeroConstructionScroll";
 import FeaturedProjectsRail from "@/components/FeaturedProjectsRail";
 import ServicesCylinderScroll from "@/components/ServicesCylinderScroll";
+import AboutCompanySection from "@/components/AboutCompanySection";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
@@ -16,46 +17,8 @@ export default function Home() {
         {/* 3. CAPABILITIES & SERVICES: 3D Cylindrical Drum Scroll */}
         <ServicesCylinderScroll />
 
-        {/* 4. THE FIRM: STATS & CREDENTIALS SECTION */}
-        <section id="about" className="relative z-10 py-28 px-6 border-t border-white/10 bg-[#0e1015]">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12">
-              <div className="max-w-2xl">
-                <span className="text-amber-400 font-mono text-xs uppercase tracking-widest font-semibold">
-                  04 / The Firm
-                </span>
-                <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-tight mt-3 leading-none">
-                  Ground-Up. <br />
-                  <span className="text-zinc-500">Uncompromising.</span>
-                </h2>
-                <p className="mt-6 text-zinc-400 text-base md:text-lg leading-relaxed">
-                  COROMANDEL LANDMARKS is Chennai&apos;s foremost architectural design-build firm.
-                  From coastal foundations on ECR to high-density commercial towers across the OMR
-                  tech corridor, we deliver turnkey engineering mastery with single-point accountability.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 lg:gap-8 w-full lg:w-auto">
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                  <div className="text-3xl sm:text-4xl font-black text-amber-400">18+</div>
-                  <div className="text-xs uppercase tracking-wider text-zinc-400 mt-1 font-mono">Years in Chennai</div>
-                </div>
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                  <div className="text-3xl sm:text-4xl font-black text-white">160+</div>
-                  <div className="text-xs uppercase tracking-wider text-zinc-400 mt-1 font-mono">Luxury Homes</div>
-                </div>
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                  <div className="text-3xl sm:text-4xl font-black text-amber-400">99%</div>
-                  <div className="text-xs uppercase tracking-wider text-zinc-400 mt-1 font-mono">On-Time Delivery</div>
-                </div>
-                <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/5">
-                  <div className="text-3xl sm:text-4xl font-black text-white">₹450Cr</div>
-                  <div className="text-xs uppercase tracking-wider text-zinc-400 mt-1 font-mono">Total Built Value</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* 4. ABOUT THE COMPANY: Split-Screen Scrollytelling & Telemetry HUD */}
+        <AboutCompanySection />
 
         {/* 5. PROCESS ROADMAP */}
         <section id="phases" className="py-28 px-6 bg-[#0a0b0d] border-t border-white/10">
