@@ -56,6 +56,8 @@ export default function HeroConstructionScroll() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
 
     // We hold either ImageBitmap (GPU decoded) or HTMLImageElement as fallback
     const frames: (ImageBitmap | HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
@@ -67,6 +69,17 @@ export default function HeroConstructionScroll() {
 
     const pad = (n: number) => ("00" + n).slice(-3);
 
+    // Immediately load and paint frame 0 so the canvas is never empty
+    const firstImg = new Image();
+    firstImg.src = `/sequence/frame_${pad(0)}.webp`;
+    firstImg.onload = () => {
+      frames[0] = firstImg;
+      renderFrame(0, true);
+    };
+    if (firstImg.complete && firstImg.naturalWidth > 0) {
+      frames[0] = firstImg;
+    }
+
     // High-DPI canvas sizing
     const resizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -74,6 +87,8 @@ export default function HeroConstructionScroll() {
       const h = window.innerHeight;
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
       renderFrame(Math.round(currentProgress * (TOTAL_FRAMES - 1)), true);
     };
 
@@ -232,10 +247,18 @@ export default function HeroConstructionScroll() {
     >
       {/* Sticky Canvas & Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between select-none">
+        {/* Instant First-Frame Poster: Displays the first frame in 0ms without waiting for JS */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/sequence/frame_000.webp"
+          alt="Ground Breaking Phase"
+          className="absolute inset-0 w-full h-full object-cover z-0 filter contrast-[1.03] brightness-[1.01]"
+        />
+
         {/* The Canvas Background */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          className="absolute inset-0 w-full h-full object-cover z-0 filter contrast-[1.03] brightness-[1.01]"
         />
 
         {/* Ambient Dark Gradient Vignette for readability */}

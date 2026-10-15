@@ -28,6 +28,14 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
+      <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/sequence/frame_000.webp"
+          type="image/webp"
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-[#0a0b0d] text-zinc-100 overflow-x-hidden">
         {children}
       </body>
