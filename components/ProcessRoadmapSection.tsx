@@ -144,7 +144,7 @@ export default function ProcessRoadmapSection() {
   return (
     <section
       ref={containerRef}
-      id="phases"
+      id="process"
       className="relative bg-[#07080b] border-t border-white/10 text-white select-none"
       style={{ height: "260vh" }} // Short, concise runway for quick smooth scrolling
     >

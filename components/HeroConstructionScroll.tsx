@@ -264,37 +264,8 @@ export default function HeroConstructionScroll() {
         {/* Ambient Dark Gradient Vignette for readability */}
         <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#0a0b0d]/75 via-transparent via-50% to-[#0a0b0d]/90" />
 
-        {/* TOP: Fixed Navigation Header */}
-        <header className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-black text-amber-400 text-base sm:text-lg">
-              C
-            </div>
-            <div>
-              <div className="text-white font-bold tracking-widest text-xs sm:text-sm uppercase">
-                COROMANDEL <span className="text-amber-400 font-light">LANDMARKS</span>
-              </div>
-              <div className="text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-widest">
-                Chennai · Luxury Design-Build
-              </div>
-            </div>
-          </div>
-
-          <div className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase text-zinc-300">
-            <a href="#about" className="hover:text-amber-400 transition-colors">Vision</a>
-            <a href="#portfolio" className="hover:text-amber-400 transition-colors">Projects</a>
-            <a href="#services" className="hover:text-amber-400 transition-colors">Services</a>
-            <a href="#phases" className="hover:text-amber-400 transition-colors">Process</a>
-            <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
-          </div>
-
-          <a
-            href="#contact"
-            className="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold text-[11px] sm:text-xs tracking-wider uppercase transition-transform hover:scale-105 shadow-lg shadow-amber-500/20"
-          >
-            Start Your Build
-          </a>
-        </header>
+        {/* Top spacer for global fixed Navbar */}
+        <div className="w-full h-16 sm:h-20 pointer-events-none" />
 
         {/* CENTER: Main Hero Text (Slowly fades as scroll begins) */}
         <div
@@ -328,9 +299,6 @@ export default function HeroConstructionScroll() {
                 <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
                   {currentPhase.tag}
                 </span>
-                <span className="text-[11px] sm:text-xs text-zinc-400 font-mono">
-                  {Math.round(scrollProgress * 100)}% COMPLETE
-                </span>
               </div>
               <h2 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-tight">
                 {currentPhase.title}
@@ -340,18 +308,10 @@ export default function HeroConstructionScroll() {
               </p>
             </div>
 
-            {/* Right: Progress Scrub Bar */}
-            <div className="w-full md:w-72 flex flex-col gap-1.5 sm:gap-2">
-              <div className="flex justify-between text-[10px] sm:text-[11px] font-mono uppercase text-zinc-400">
-                <span>Excavation</span>
-                <span className="text-amber-400">Completed Landmark</span>
-              </div>
-              <div className="w-full h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden p-0.5">
-                <div
-                  className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all duration-150"
-                  style={{ width: `${Math.max(4, scrollProgress * 100)}%` }}
-                />
-              </div>
+            {/* Right: Architectural Scroll Hint (No Loading/Progress Bar) */}
+            <div className="flex items-center gap-2 text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-wider shrink-0 self-start sm:self-auto">
+              <span>Scroll to Build</span>
+              <span className="text-amber-400 font-bold">↓</span>
             </div>
           </div>
 

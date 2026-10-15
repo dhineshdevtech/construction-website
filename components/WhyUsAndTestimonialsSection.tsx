@@ -101,7 +101,7 @@ export default function WhyUsAndTestimonialsSection() {
   const currentTestimonial = TESTIMONIALS[activeTestimonial];
 
   return (
-    <section className="relative z-10 bg-[#07080a] py-20 sm:py-28 lg:py-32 border-t border-white/10 text-white select-none">
+    <section id="why-us" className="relative z-10 bg-[#07080a] py-20 sm:py-28 lg:py-32 border-t border-white/10 text-white select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}

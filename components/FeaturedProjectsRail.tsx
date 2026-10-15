@@ -166,7 +166,7 @@ export default function FeaturedProjectsRail() {
   return (
     <section
       ref={containerRef}
-      id="portfolio"
+      id="projects"
       className="relative bg-[#07080a] text-zinc-100 select-none border-t border-white/10"
       style={{ height: "480vh" }} // Runway for comfortable 56vw cards
     >

@@ -240,25 +240,6 @@ export default function AboutCompanySection() {
               {/* TELEMETRY OVERLAY / HUD LAYER */}
               <div className="absolute inset-0 p-3 sm:p-5 lg:p-6 flex flex-col justify-between pointer-events-none z-10 font-mono text-[11px]">
                 <div />
-
-                {/* Bottom HUD: Sleek 4-Segment Progress Bar */}
-                <div>
-                  <div className="grid grid-cols-4 gap-1 sm:gap-1.5 bg-black/50 backdrop-blur-md p-1 sm:p-1.5 rounded-full border border-white/10">
-                    {CHAPTERS.map((_, i) => (
-                      <div
-                        key={i}
-                        className={`h-0.5 sm:h-1 rounded-full transition-all duration-500 ${
-                          activeChapter === i
-                            ? "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]"
-                            : activeChapter > i
-                            ? "bg-white/40"
-                            : "bg-white/10"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-
               </div>
 
             </div>

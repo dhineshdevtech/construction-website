@@ -438,22 +438,9 @@ export default function ServicesCylinderScroll() {
             </span>
           </div>
 
-          {/* Interactive Progress Line */}
-          <div className="w-full sm:w-80 flex items-center gap-3">
-            <span className="text-[10px] font-mono uppercase text-zinc-500">01 / Turnkey</span>
-            <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div
-                ref={progressBarRef}
-                className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all duration-150"
-                style={{ width: "8%" }}
-              />
-            </div>
-            <span className="text-[10px] font-mono uppercase text-amber-400">05 / Retrofit</span>
-          </div>
-
           <div className="hidden md:flex items-center gap-2 text-[11px] font-mono uppercase text-zinc-500">
             <span>Scroll Wheel to Rotate Drum</span>
-            <span className="animate-pulse">↓</span>
+            <span className="text-amber-400 font-bold">↓</span>
           </div>
         </div>
       </div>

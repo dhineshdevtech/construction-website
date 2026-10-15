@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import HeroConstructionScroll from "@/components/HeroConstructionScroll";
 import FeaturedProjectsRail from "@/components/FeaturedProjectsRail";
 import ServicesCylinderScroll from "@/components/ServicesCylinderScroll";
@@ -11,6 +12,9 @@ export default function Home() {
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-[#0a0b0d] text-zinc-100 font-sans selection:bg-amber-500 selection:text-black">
+        {/* GLOBAL NAVIGATION: Desktop Bar & Responsive Mobile Drawer */}
+        <Navbar />
+
         {/* 1. HERO: Interactive Scroll-Scrubbed Construction Animation */}
         <HeroConstructionScroll />
 
