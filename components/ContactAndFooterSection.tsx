@@ -4,17 +4,17 @@ import React, { useState, useEffect } from "react";
 import { scrollToSection } from "@/components/SmoothScroll";
 
 const TYPOLOGIES = [
-  { id: "residence", label: "Luxury Residence / Villa", sub: "Boat Club, ECR, Poes Garden", icon: "🏛️" },
-  { id: "commercial", label: "Commercial Headquarters", sub: "OMR, Guindy, Mount Road", icon: "🏢" },
-  { id: "hospitality", label: "Boutique Resort / Hotel", sub: "ECR Coastal, Mahabalipuram", icon: "🏖️" },
-  { id: "institutional", label: "Institutional Campus", sub: "Educational & Cultural Foundations", icon: "📐" },
+  { id: "residence", label: "Luxury Residence" },
+  { id: "commercial", label: "Commercial HQ" },
+  { id: "hospitality", label: "Boutique Resort" },
+  { id: "institutional", label: "Institutional" },
 ];
 
 const SCALES = [
-  { id: "scale-1", label: "5,000 – 12,000 Sq.Ft.", timeline: "12 – 14 Mo. Delivery" },
-  { id: "scale-2", label: "12,000 – 35,000 Sq.Ft.", timeline: "14 – 18 Mo. Delivery" },
-  { id: "scale-3", label: "35,000 – 100,000 Sq.Ft.", timeline: "18 – 24 Mo. Delivery" },
-  { id: "scale-4", label: "100,000+ Sq.Ft. Landmark", timeline: "24 – 32 Mo. Fast-Track" },
+  { id: "scale-1", label: "5,000 – 12,000 Sq.Ft." },
+  { id: "scale-2", label: "12,000 – 35,000 Sq.Ft." },
+  { id: "scale-3", label: "35,000 – 100,000 Sq.Ft." },
+  { id: "scale-4", label: "100,000+ Sq.Ft." },
 ];
 
 const CORRIDORS = [
@@ -23,7 +23,7 @@ const CORRIDORS = [
   "Poes Garden / Alwarpet",
   "OMR Tech Corridor",
   "Nungambakkam / Kilpauk",
-  "Other Tamil Nadu Location",
+  "Other Chennai Location",
 ];
 
 export default function ContactAndFooterSection() {
@@ -69,187 +69,126 @@ export default function ContactAndFooterSection() {
   return (
     <div id="contact" className="relative z-10 bg-[#060709] border-t border-white/10 text-white select-none">
       
-      {/* ========================================================= */}
-      {/* UPPER SECTION: Consultation & Scope Estimator */}
-      {/* ========================================================= */}
-      <section className="py-16 sm:py-24 lg:py-32 px-4 sm:px-6 max-w-7xl mx-auto">
+      {/* UPPER SECTION: Combined Simple & Short Executive Concierge */}
+      <section className="py-14 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16 border-b border-white/10">
+        {/* Simple Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 sm:pb-10 border-b border-white/10 mb-8 sm:mb-10">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               <span className="text-amber-400 font-mono text-[10px] sm:text-xs uppercase tracking-widest font-semibold">
-                06 / Direct Executive Concierge
+                Direct Executive Concierge
               </span>
             </div>
-            <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[1.05]">
-              Initiate Your <br />
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-[1.05]">
+              Initiate Your{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
                 Landmark Blueprint.
               </span>
             </h2>
           </div>
 
-          <div className="max-w-md md:text-right">
-            <p className="text-zinc-400 text-xs sm:text-sm md:text-base leading-relaxed">
-              Define your project scope below for a direct, confidential feasibility consultation
-              with our principal architects and chief engineering directors.
-            </p>
-          </div>
+          <p className="text-zinc-400 text-xs sm:text-sm max-w-md md:text-right leading-relaxed">
+            Direct, confidential feasibility consultation with our principal architects and engineering directors.
+          </p>
         </div>
 
-        {/* Main Content Grid: Interactive Scope Builder (Left) + Executive Concierge (Right) */}
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          
-          {/* LEFT 7 COLS: The Interactive Scope & Estimate Form */}
-          <div className="lg:col-span-7 bg-[#0b0d12] border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden">
+        {/* Combined Single Unified Card */}
+        <div className="bg-[#0b0d12] border border-white/10 rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 shadow-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             
-            {submitted ? (
-              <div className="py-12 sm:py-16 text-center flex flex-col items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl mb-4 shadow-[0_0_20px_rgba(251,191,36,0.2)]">
-                  ✓
-                </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
-                  Feasibility Request Received
-                </h3>
-                <p className="mt-3 text-zinc-400 text-xs sm:text-sm max-w-md leading-relaxed">
-                  Thank you, <span className="text-white font-semibold">{fullName || "Esteemed Client"}</span>.
-                  Our senior structural director has been notified of your inquiry for{" "}
-                  <span className="text-amber-400">{selectedCorridor}</span>. We will contact you within 4 business hours.
-                </p>
-                <div className="mt-6 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-zinc-400">
-                  REF: CL-{Math.floor(100000 + Math.random() * 900000)} // CONFIDENTIAL
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="mt-6 text-xs text-amber-400 font-mono underline hover:text-amber-300"
-                >
-                  Configure another project scope
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-                
-                {/* Step 1: Typology */}
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">
-                      STEP 01 // Select Project Typology
-                    </span>
-                    <span className="text-[10px] font-mono text-amber-400">REQUIRED</span>
+            {/* Left 7 cols: Compact Form */}
+            <div className="lg:col-span-7">
+              {submitted ? (
+                <div className="py-10 text-center flex flex-col items-center justify-center">
+                  <div className="w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 text-2xl mb-3 shadow-[0_0_20px_rgba(251,191,36,0.2)]">
+                    ✓
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {TYPOLOGIES.map((t) => (
-                      <button
-                        type="button"
-                        key={t.id}
-                        onClick={() => setSelectedTypology(t.id)}
-                        className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-                          selectedTypology === t.id
-                            ? "bg-amber-500/10 border-amber-500 text-white shadow-[0_0_15px_rgba(251,191,36,0.15)]"
-                            : "bg-white/[0.02] border-white/10 text-zinc-400 hover:text-white hover:border-white/20"
-                        }`}
-                      >
-                        <div className="flex items-center gap-2">
-                          <span className="text-base">{t.icon}</span>
-                          <span className="text-xs sm:text-sm font-bold uppercase tracking-tight text-white">
-                            {t.label}
-                          </span>
-                        </div>
-                        <div className="text-[10px] text-zinc-500 mt-1 font-mono">{t.sub}</div>
-                      </button>
-                    ))}
-                  </div>
+                  <h3 className="text-xl font-bold text-white uppercase tracking-tight">
+                    Feasibility Request Received
+                  </h3>
+                  <p className="mt-2 text-zinc-400 text-xs sm:text-sm max-w-sm leading-relaxed">
+                    Thank you, <span className="text-white font-semibold">{fullName || "Esteemed Client"}</span>. Our senior director will contact you within 4 business hours.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSubmitted(false)}
+                    className="mt-5 text-xs text-amber-400 font-mono underline hover:text-amber-300 cursor-pointer"
+                  >
+                    Submit another inquiry
+                  </button>
                 </div>
-
-                {/* Step 2: Scale */}
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">
-                      STEP 02 // Built-Up Area Scale
-                    </span>
-                    <span className="text-[10px] font-mono text-zinc-500">ESTIMATED TIMELINE</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {SCALES.map((s) => (
-                      <button
-                        type="button"
-                        key={s.id}
-                        onClick={() => setSelectedScale(s.id)}
-                        className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
-                          selectedScale === s.id
-                            ? "bg-amber-500/10 border-amber-500 text-white"
-                            : "bg-white/[0.02] border-white/10 text-zinc-400 hover:text-white hover:border-white/20"
-                        }`}
-                      >
-                        <div className="text-xs sm:text-sm font-mono font-bold text-white truncate">
-                          {s.label}
-                        </div>
-                        <div className="text-[10px] text-amber-400/90 font-mono mt-0.5">{s.timeline}</div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Step 3: Location Corridor & Site Status */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Typology Pills */}
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-2">
-                      STEP 03 // Location Corridor
+                    <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-2">
+                      Project Typology
                     </label>
-                    <select
-                      value={selectedCorridor}
-                      onChange={(e) => setSelectedCorridor(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
-                    >
-                      {CORRIDORS.map((c) => (
-                        <option key={c} value={c} className="bg-[#0b0d12] text-white">
-                          {c}
-                        </option>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {TYPOLOGIES.map((t) => (
+                        <button
+                          type="button"
+                          key={t.id}
+                          onClick={() => setSelectedTypology(t.id)}
+                          className={`px-3 py-2.5 rounded-xl border text-center transition-all cursor-pointer ${
+                            selectedTypology === t.id
+                              ? "bg-amber-400 text-black font-bold border-amber-400 shadow-sm"
+                              : "bg-white/[0.02] border-white/10 text-zinc-400 hover:text-white hover:bg-white/[0.05]"
+                          }`}
+                        >
+                          <span className="text-xs truncate block">{t.label}</span>
+                        </button>
                       ))}
-                    </select>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold mb-2">
-                      Site Stage
-                    </label>
-                    <select
-                      value={siteStatus}
-                      onChange={(e) => setSiteStatus(e.target.value)}
-                      className="w-full px-3.5 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
-                    >
-                      <option value="raw-plot" className="bg-[#0b0d12] text-white">
-                        Raw Plot (Ready to Build)
-                      </option>
-                      <option value="drawings-ready" className="bg-[#0b0d12] text-white">
-                        Architectural Drawings Ready
-                      </option>
-                      <option value="redevelopment" className="bg-[#0b0d12] text-white">
-                        Demolition & Redevelopment
-                      </option>
-                      <option value="seeking-land" className="bg-[#0b0d12] text-white">
-                        Acquiring Land / Evaluation
-                      </option>
-                    </select>
-                  </div>
-                </div>
+                  {/* Scale & Location Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
+                        Built-Up Scale
+                      </label>
+                      <select
+                        value={selectedScale}
+                        onChange={(e) => setSelectedScale(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+                      >
+                        {SCALES.map((s) => (
+                          <option key={s.id} value={s.id} className="bg-[#0b0d12] text-white">
+                            {s.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                {/* Step 4: Contact Inputs */}
-                <div className="pt-2 border-t border-white/5 space-y-3">
-                  <span className="block text-xs font-mono uppercase tracking-wider text-zinc-400 font-semibold">
-                    STEP 04 // Confidential Contact Details
-                  </span>
-                  
+                    <div>
+                      <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5">
+                        Location Corridor
+                      </label>
+                      <select
+                        value={selectedCorridor}
+                        onChange={(e) => setSelectedCorridor(e.target.value)}
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white text-xs font-mono focus:outline-none focus:border-amber-400"
+                      >
+                        {CORRIDORS.map((c) => (
+                          <option key={c} value={c} className="bg-[#0b0d12] text-white">
+                            {c}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Contact Inputs */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input
                       type="text"
                       placeholder="Your Full Name"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-400"
                     />
                     <input
                       type="tel"
@@ -257,7 +196,7 @@ export default function ContactAndFooterSection() {
                       required
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-400"
                     />
                   </div>
 
@@ -266,72 +205,58 @@ export default function ContactAndFooterSection() {
                     placeholder="Official / Personal Email Address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-zinc-500 text-xs focus:outline-none focus:border-amber-400"
                   />
-                </div>
 
-                {/* Submit Action */}
-                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="text-[11px] font-mono text-zinc-500">
-                    🔒 Strict NDA Discretion • Zero Contractor Spam
+                  {/* Submit Bar */}
+                  <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <span className="text-[11px] font-mono text-zinc-500">
+                      🔒 Strict NDA Discretion • Direct Director Call
+                    </span>
+                    <button
+                      type="submit"
+                      className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider transition-transform hover:scale-105 shadow-lg shadow-amber-500/20 cursor-pointer"
+                    >
+                      Request Blueprint Study →
+                    </button>
                   </div>
+                </form>
+              )}
+            </div>
 
-                  <button
-                    type="submit"
-                    className="px-8 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] shadow-xl shadow-amber-500/25 cursor-pointer text-center"
-                  >
-                    Request Feasibility Study →
-                  </button>
-                </div>
-
-              </form>
-            )}
-
-          </div>
-
-          {/* RIGHT 5 COLS: Direct Concierge & Headquarters Card */}
-          <div className="lg:col-span-5 flex flex-col justify-between gap-6">
-            
-            {/* Headquarters Card */}
-            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-white/10 space-y-6">
-              
-              {/* Live Status Badge */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+            {/* Right 5 cols: Integrated Direct Headquarters & Contacts */}
+            <div className="lg:col-span-5 lg:border-l lg:border-white/10 lg:pl-8 space-y-4">
+              {/* Status Header */}
+              <div className="flex items-center justify-between pb-3 border-b border-white/10">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-widest font-bold">
+                  <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-bold">
                     HQ DIRECTORS DESK ACTIVE
                   </span>
                 </div>
-                <div className="text-[11px] font-mono text-zinc-400">
+                <div className="text-[10px] font-mono text-zinc-400">
                   {currentTime ? `${currentTime} IST` : "CHENNAI IST"}
                 </div>
               </div>
 
-              {/* Physical Address */}
+              {/* Physical Office Address */}
               <div>
-                <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 mb-1">
-                  PRINCIPAL DESIGN-BUILD HEADQUARTERS
-                </div>
-                <div className="text-base sm:text-lg font-bold text-white leading-snug">
-                  Coromandel Tower, Level 7
-                </div>
-                <div className="text-xs sm:text-sm text-zinc-400 mt-0.5">
-                  Boat Club Road, RA Puram, Chennai – 600028, TN, India
-                </div>
+                <div className="text-[10px] font-mono uppercase text-zinc-500">PRINCIPAL HEADQUARTERS</div>
+                <div className="text-sm font-bold text-white mt-0.5">Coromandel Tower, Level 7</div>
+                <div className="text-xs text-zinc-400">Boat Club Road, RA Puram, Chennai – 600028</div>
               </div>
 
-              {/* Direct Communication Lines */}
-              <div className="space-y-3 pt-2">
+              {/* Direct Communication Channels */}
+              <div className="space-y-2 pt-1">
                 <a
                   href="tel:+914448002900"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-amber-400/40 transition-colors group"
+                  className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-amber-400/40 transition group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-amber-400 font-mono text-sm">📞</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-amber-400 text-xs">📞</span>
                     <div>
-                      <div className="text-[10px] font-mono text-zinc-500 uppercase">Executive Switchboard</div>
-                      <div className="text-xs sm:text-sm font-mono font-bold text-white group-hover:text-amber-400">
+                      <div className="text-[9px] font-mono uppercase text-zinc-500">Executive Switchboard</div>
+                      <div className="text-xs font-mono font-bold text-white group-hover:text-amber-400">
                         +91 (044) 4800 2900
                       </div>
                     </div>
@@ -340,14 +265,16 @@ export default function ContactAndFooterSection() {
                 </a>
 
                 <a
-                  href="tel:+919840012890"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-amber-400/40 transition-colors group"
+                  href="https://wa.me/919840012890"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-amber-400/40 transition group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-amber-400 font-mono text-sm">💬</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-emerald-400 text-xs">💬</span>
                     <div>
-                      <div className="text-[10px] font-mono text-zinc-500 uppercase">Director Direct WhatsApp</div>
-                      <div className="text-xs sm:text-sm font-mono font-bold text-white group-hover:text-amber-400">
+                      <div className="text-[9px] font-mono uppercase text-zinc-500">Director WhatsApp</div>
+                      <div className="text-xs font-mono font-bold text-white group-hover:text-amber-400">
                         +91 98400 12890
                       </div>
                     </div>
@@ -357,13 +284,13 @@ export default function ContactAndFooterSection() {
 
                 <a
                   href="mailto:directors@coromandellandmarks.com"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-amber-400/40 transition-colors group"
+                  className="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-amber-400/40 transition group"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-amber-400 font-mono text-sm">✉️</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-amber-400 text-xs">✉️</span>
                     <div>
-                      <div className="text-[10px] font-mono text-zinc-500 uppercase">Confidential Project Registry</div>
-                      <div className="text-xs sm:text-sm font-mono font-bold text-white group-hover:text-amber-400 truncate max-w-[200px] sm:max-w-none">
+                      <div className="text-[9px] font-mono uppercase text-zinc-500">Direct Registry</div>
+                      <div className="text-xs font-mono font-bold text-white group-hover:text-amber-400 truncate max-w-[180px]">
                         directors@coromandellandmarks.com
                       </div>
                     </div>
@@ -372,135 +299,67 @@ export default function ContactAndFooterSection() {
                 </a>
               </div>
 
-              {/* Environmental Resilience Tag */}
-              <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-zinc-500">
-                <span>COASTAL CHENNAI STATION</span>
-                <span className="text-amber-400/80">31°C • HUMIDITY 72% • SE 14 KM/H</span>
-              </div>
-
-            </div>
-
-            {/* Certifications Card */}
-            <div className="p-5 rounded-2xl bg-black/40 border border-white/5 flex flex-col gap-2">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-zinc-400 font-bold">
-                MANDATORY STATUTORY REGISTRATIONS
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-zinc-400">
-                <div>• CMDA Class-I Special Builder</div>
-                <div>• IGBC Platinum Certified</div>
-                <div>• ISO 9001:2015 Civil QA</div>
-                <div>• Structural Warranty Registry</div>
+              {/* Statutory Certification Pills */}
+              <div className="pt-2 border-t border-white/5 flex flex-wrap gap-2 text-[10px] font-mono text-zinc-500">
+                <span>• CMDA Special Builder</span>
+                <span>• IGBC Platinum</span>
+                <span>• ISO 9001:2015</span>
               </div>
             </div>
 
           </div>
-
         </div>
-
       </section>
 
       {/* ========================================================= */}
-      {/* LOWER SECTION: Monolithic Architectural Footer */}
+      {/* LOWER SECTION: Streamlined Architectural Footer */}
       {/* ========================================================= */}
-      <footer className="pt-16 sm:pt-24 pb-12 border-t border-white/10 bg-[#040507]">
+      <footer className="py-10 sm:py-12 border-t border-white/10 bg-[#040507]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
-          {/* Top Brand Hero Banner */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 sm:pb-16 border-b border-white/10">
+          {/* Main Footer Row */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-8 border-b border-white/10">
             <div>
-              <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none">
-                COROMANDEL <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">
-                  LANDMARKS
-                </span>
+              <div className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight">
+                COROMANDEL <span className="text-amber-400">LANDMARKS</span>
               </div>
-              <p className="text-zinc-500 text-xs sm:text-sm font-mono uppercase tracking-widest mt-3">
-                Architectural Design & Precision Civil Engineering • Chennai, South India
+              <p className="text-zinc-500 text-xs font-mono uppercase tracking-wider mt-1">
+                Architectural Design & Precision Civil Engineering · Chennai, India
               </p>
             </div>
 
-            {/* Back to Top */}
-            <button
-              type="button"
-              onClick={scrollToTop}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-amber-400 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-white transition-all cursor-pointer self-start md:self-auto"
-            >
-              <span>Back to Top</span>
-              <span className="text-amber-400 font-bold">↑</span>
-            </button>
+            {/* Right: Single-Line Navigation & Back to Top */}
+            <div className="flex flex-wrap items-center gap-5 sm:gap-7 text-xs font-mono uppercase tracking-wider text-zinc-400">
+              <a href="#projects" className="hover:text-amber-400 transition-colors whitespace-nowrap">Projects</a>
+              <a href="#services" className="hover:text-amber-400 transition-colors whitespace-nowrap">Capabilities</a>
+              <a href="#about" className="hover:text-amber-400 transition-colors whitespace-nowrap">The Firm</a>
+              <a href="#why-us" className="hover:text-amber-400 transition-colors whitespace-nowrap">Why Us</a>
+              <a href="#contact" className="hover:text-amber-400 transition-colors whitespace-nowrap">Contact</a>
+
+              <span className="hidden sm:inline w-[1px] h-4 bg-white/20" />
+
+              {/* Back to Top */}
+              <button
+                type="button"
+                onClick={scrollToTop}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-amber-400 text-xs font-mono uppercase tracking-wider text-zinc-400 hover:text-white transition-all cursor-pointer whitespace-nowrap"
+              >
+                <span>Back to Top</span>
+                <span className="text-amber-400 font-bold">↑</span>
+              </button>
+            </div>
           </div>
 
-          {/* 4 Column Directory */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 sm:py-16 border-b border-white/10 text-xs">
-            
-            {/* Col 1 */}
+          {/* Bottom Copyright & Legal Line */}
+          <div className="pt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] font-mono text-zinc-500">
             <div>
-              <div className="font-mono text-amber-400 uppercase tracking-widest text-[11px] font-bold mb-4">
-                01 // Portfolio
-              </div>
-              <ul className="space-y-2.5 text-zinc-400 font-mono text-[11px]">
-                <li><a href="#projects" className="hover:text-white transition-colors">Coastal Residences (ECR)</a></li>
-                <li><a href="#projects" className="hover:text-white transition-colors">Commercial Towers (OMR)</a></li>
-                <li><a href="#projects" className="hover:text-white transition-colors">Heritage Estates (Boat Club)</a></li>
-                <li><a href="#projects" className="hover:text-white transition-colors">Institutional Campuses</a></li>
-                <li><a href="#projects" className="hover:text-white transition-colors">Industrial Cleanrooms</a></li>
-              </ul>
+              © 2008 – 2026 Coromandel Landmarks Pvt. Ltd. All rights reserved.
             </div>
 
-            {/* Col 2 */}
-            <div>
-              <div className="font-mono text-amber-400 uppercase tracking-widest text-[11px] font-bold mb-4">
-                02 // Discipline
-              </div>
-              <ul className="space-y-2.5 text-zinc-400 font-mono text-[11px]">
-                <li><a href="#services" className="hover:text-white transition-colors">4D BIM Clash Detection</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Rotary Geotechnical Piling</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">High-Strength M60 Mixes</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">Subterranean Hydro-Shield</a></li>
-                <li><a href="#services" className="hover:text-white transition-colors">140-Point Snag Audits</a></li>
-              </ul>
-            </div>
-
-            {/* Col 3 */}
-            <div>
-              <div className="font-mono text-amber-400 uppercase tracking-widest text-[11px] font-bold mb-4">
-                03 // Standards
-              </div>
-              <ul className="space-y-2.5 text-zinc-400 font-mono text-[11px]">
-                <li className="text-zinc-400">CMDA Sanctions & Permits</li>
-                <li className="text-zinc-400">CRZ Coastal Clearances</li>
-                <li className="text-zinc-400">IGBC Platinum Protocols</li>
-                <li className="text-zinc-400">10-Year Warranty Deed</li>
-                <li className="text-zinc-400">Ultrasonic Batch Testing</li>
-              </ul>
-            </div>
-
-            {/* Col 4 */}
-            <div>
-              <div className="font-mono text-amber-400 uppercase tracking-widest text-[11px] font-bold mb-4">
-                04 // Corridors
-              </div>
-              <ul className="space-y-2.5 text-zinc-400 font-mono text-[11px]">
-                <li className="text-zinc-400">Boat Club Road & RA Puram</li>
-                <li className="text-zinc-400">East Coast Road (ECR)</li>
-                <li className="text-zinc-400">Old Mahabalipuram Rd (OMR)</li>
-                <li className="text-zinc-400">Poes Garden & Alwarpet</li>
-                <li className="text-zinc-400">Anna Nagar & Kilpauk</li>
-              </ul>
-            </div>
-
-          </div>
-
-          {/* Bottom Copyright & Disclaimer */}
-          <div className="pt-8 flex flex-col md:flex-row md:items-center justify-between gap-4 text-[10px] sm:text-[11px] font-mono text-zinc-500">
-            <div>
-              © 2008 – 2026 COROMANDEL LANDMARKS PRIVATE LIMITED. ALL RIGHTS RESERVED.
-            </div>
-
-            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <span>CIN: U45200TN2008PTC068940</span>
-              <span>GSTIN: 33AABCC1234F1Z9</span>
-              <span>PRIVACY & TERMS</span>
+            <div className="flex items-center gap-4">
+              <span>Boat Club Road, RA Puram, Chennai</span>
+              <span>•</span>
+              <span className="hover:text-zinc-400 transition-colors cursor-pointer">Privacy & Terms</span>
             </div>
           </div>
 

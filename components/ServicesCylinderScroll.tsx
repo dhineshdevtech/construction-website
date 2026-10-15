@@ -471,7 +471,7 @@ export default function ServicesCylinderScroll() {
         </div>
 
         {/* BOTTOM HUD: Architectural Progress & Engineering Standards Line */}
-        <div className="relative z-20 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10 pt-3 sm:pt-4">
+        <div className="hidden md:flex relative z-20 flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10 pt-3 sm:pt-4">
           <div className="flex items-center gap-3 text-xs font-mono text-zinc-400 uppercase">
             <span ref={hudIndexRef} className="text-amber-400 font-bold">
               CAPABILITY 01 OF 05
