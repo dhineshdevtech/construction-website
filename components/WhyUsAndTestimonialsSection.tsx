@@ -4,14 +4,15 @@ import React, { useState } from "react";
 
 interface Testimonial {
   id: string;
+  avatarLetter: string;
+  avatarColor: string;
   clientName: string;
   clientRole: string;
   location: string;
+  date: string;
   projectScope: string;
   rating: number;
   quote: string;
-  highlight: string;
-  metrics: { label: string; value: string }[];
 }
 
 const ADVANTAGES = [
@@ -48,60 +49,87 @@ const ADVANTAGES = [
 const TESTIMONIALS: Testimonial[] = [
   {
     id: "testimonial-1",
-    clientName: "Mr. Rajiv Sundaram",
+    avatarLetter: "R",
+    avatarColor: "bg-amber-600",
+    clientName: "Rajiv Sundaram",
     clientRole: "Founder & Managing Trustee",
-    location: "ECR Beachfront Estate, Chennai",
-    projectScope: "16,000 SQ. FT. COASTAL VILLA",
+    location: "East Coast Road (ECR), Chennai",
+    date: "3 weeks ago",
+    projectScope: "Turnkey Luxury Villa · 16,000 Sq.Ft.",
     rating: 5,
-    highlight: "Zero salt degradation after 5 monsoons.",
     quote:
-      "Building on the ECR coast is notoriously difficult due to extreme salinity and shallow water tables. Coromandel's geotechnical piling and marine-grade M40 concrete mix has withstood five heavy monsoons with zero degradation. They delivered three weeks ahead of schedule with exemplary professional integrity.",
-    metrics: [
-      { label: "TIMELINE", value: "3 Weeks Ahead" },
-      { label: "SCALE", value: "16,000 Sq.Ft." },
-      { label: "STATUS", value: "Delivered 2024" },
-    ],
+      "Building on the ECR coast was daunting due to severe coastal salinity. Coromandel's geotechnical piling and marine M40 mix has withstood five heavy monsoons with zero degradation. They delivered 3 weeks ahead of schedule with exemplary integrity.",
   },
   {
     id: "testimonial-2",
-    clientName: "Dr. K. Meenakshi & Group",
-    clientRole: "Managing Director, Tech Infrastructure",
+    avatarLetter: "M",
+    avatarColor: "bg-teal-600",
+    clientName: "Dr. K. Meenakshi",
+    clientRole: "Managing Director, Tech Infra",
     location: "OMR Tech Corridor, Chennai",
-    projectScope: "240,000 SQ. FT. COMMERCIAL TOWER",
+    date: "1 month ago",
+    projectScope: "Commercial Complex · 240,000 Sq.Ft.",
     rating: 5,
-    highlight: "BIM clash detection saved millions in rework.",
     quote:
-      "Their 4D BIM clash detection caught structural and HVAC collisions in the digital twin long before concrete was cast on site. The finish quality on the post-tensioned spans and acoustic double-glazed facade easily passed our multinational tenant's strict global audit.",
-    metrics: [
-      { label: "BUILT VALUE", value: "₹85Cr Delivered" },
-      { label: "BIM CLASHES", value: "Zero Site Errors" },
-      { label: "OCCUPANCY", value: "100% Leased" },
-    ],
+      "Their 4D BIM clash detection caught structural collisions in the digital twin long before concrete was cast on site. The double-glazed acoustic facade easily passed our multinational tenant's strict global audit.",
   },
   {
     id: "testimonial-3",
+    avatarLetter: "A",
+    avatarColor: "bg-rose-600",
     clientName: "Ananya & Siddharth Rao",
-    clientRole: "Private Family Residence",
-    location: "Boat Club Road, RA Puram, Chennai",
-    projectScope: "11,500 SQ. FT. HERITAGE RESIDENCE",
+    clientRole: "Private Residence",
+    location: "Boat Club Road, RA Puram",
+    date: "2 months ago",
+    projectScope: "Heritage Luxury Estate · 11,500 Sq.Ft.",
     rating: 5,
-    highlight: "Unmatched craftsmanship on cantilevers and stone.",
     quote:
-      "We demanded an architectural landmark that blended traditional South Indian hand-carved stone with dramatic column-free cantilevers. Coromandel translated audacious blueprints into unyielding structural reality. The 140-point snag inspection meant possession was truly flawless.",
-    metrics: [
-      { label: "FINISH", value: "Museum Grade" },
-      { label: "AUDIT GATES", value: "140 Passed" },
-      { label: "WARRANTY", value: "10-Year Deed" },
-    ],
+      "We demanded an architectural landmark blending hand-carved Dravidian stone with dramatic column-free cantilevers. Coromandel translated audacious blueprints into unyielding structural reality with museum-grade precision.",
+  },
+  {
+    id: "testimonial-4",
+    avatarLetter: "V",
+    avatarColor: "bg-blue-600",
+    clientName: "Vikramaditya Varma",
+    clientRole: "Chairman, Logistics Group",
+    location: "Poes Garden, Chennai",
+    date: "3 months ago",
+    projectScope: "Urban Luxury Estate · 22,000 Sq.Ft.",
+    rating: 5,
+    quote:
+      "Zero budget escalation on a ₹42Cr turnkey contract. Every single milestone was accounted for with weekly drone footage, laser-screed floor audits, and certified batch testing. Absolute gold standard in civil construction.",
+  },
+  {
+    id: "testimonial-5",
+    avatarLetter: "D",
+    avatarColor: "bg-purple-600",
+    clientName: "Deepa & Arun Chandran",
+    clientRole: "Architectural Patrons",
+    location: "Covelong Beach, Chennai",
+    date: "4 months ago",
+    projectScope: "Beachfront Sanctuary · 14,000 Sq.Ft.",
+    rating: 5,
+    quote:
+      "Our cantilevered sea-facing infinity pool seemed structurally impossible. Coromandel engineered the post-tensioned slab with zero vibration. The precision and finish are extraordinary.",
+  },
+  {
+    id: "testimonial-6",
+    avatarLetter: "N",
+    avatarColor: "bg-emerald-600",
+    clientName: "Capt. R. Narayanan",
+    clientRole: "Senior Naval Architect (Retd.)",
+    location: "Nungambakkam, Chennai",
+    date: "5 months ago",
+    projectScope: "Turnkey Contemporary · 9,800 Sq.Ft.",
+    rating: 5,
+    quote:
+      "As a naval architect, I know saltwater corrosion intimately. Coromandel's subterranean waterproofing and structural curing practices are the finest in South India. 10-year warranty deed gave us complete peace of mind.",
   },
 ];
 
 export default function WhyUsAndTestimonialsSection() {
-  const [activeTestimonial, setActiveTestimonial] = useState<number>(0);
-  const currentTestimonial = TESTIMONIALS[activeTestimonial];
-
   return (
-    <section id="why-us" className="relative z-10 bg-[#07080a] py-20 sm:py-28 lg:py-32 border-t border-white/10 text-white select-none">
+    <section id="why-us" className="relative z-10 bg-[#07080a] py-20 sm:py-28 lg:py-32 border-t border-white/10 text-white select-none overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
         {/* Section Header */}
@@ -164,118 +192,115 @@ export default function WhyUsAndTestimonialsSection() {
         </div>
 
         {/* ========================================================= */}
-        {/* PART 2: Verified Executive Testimonials Carousel */}
+        {/* PART 2: Verified Google Reviews & Client Testimonials */}
         {/* ========================================================= */}
-        <div className="mt-16 sm:mt-24 pt-12 sm:pt-16 border-t border-white/10">
+        <div className="mt-20 sm:mt-28 pt-12 sm:pt-16 border-t border-white/10">
           
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10">
-            <div>
-              <span className="text-amber-400 font-mono text-xs uppercase tracking-widest font-semibold">
-                Client Testimonials & Case Studies
+          {/* Header inspired by reference design */}
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <span className="w-8 sm:w-12 h-[1px] bg-zinc-600" />
+              <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.25em] text-zinc-400 font-semibold">
+                GOOGLE REVIEWS
               </span>
-              <h3 className="text-xl sm:text-3xl font-black text-white uppercase tracking-tight mt-1">
-                Voices of Those Who Built With Us
-              </h3>
+              <span className="w-8 sm:w-12 h-[1px] bg-zinc-600" />
             </div>
 
-            {/* Testimonial Nav Tabs */}
-            <div className="flex items-center gap-2">
-              {TESTIMONIALS.map((t, idx) => (
-                <button
-                  key={t.id}
-                  onClick={() => setActiveTestimonial(idx)}
-                  className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full font-mono text-xs font-bold transition-all cursor-pointer flex items-center justify-center ${
-                    activeTestimonial === idx
-                      ? "bg-amber-500 text-black shadow-md shadow-amber-500/30 scale-105"
-                      : "bg-white/5 text-zinc-400 border border-white/10 hover:text-white hover:bg-white/10"
-                  }`}
+            <h3 className="text-3xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight">
+              What Clients{" "}
+              <span className="italic font-serif font-light text-zinc-300">
+                Say About Us
+              </span>
+            </h3>
+
+            {/* Rating Stats line */}
+            <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mt-4 text-sm sm:text-base">
+              <span className="text-2xl sm:text-3xl font-black text-amber-400 font-mono">
+                4.9
+              </span>
+              <div className="flex text-amber-400 text-base sm:text-lg tracking-wider">
+                ★★★★★
+              </div>
+              <span className="text-xs sm:text-sm text-zinc-400 font-medium">
+                Based on 160+ Delivered Landmarks & Google Reviews
+              </span>
+            </div>
+          </div>
+
+          {/* Automatic Smooth Running Marquee Carousel */}
+          <div className="relative w-full overflow-hidden py-4 -mx-4 sm:-mx-6 px-4 sm:px-6">
+            {/* Left and Right ambient fade vignettes for seamless edge vanishing */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#07080a] to-transparent z-10" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#07080a] to-transparent z-10" />
+
+            {/* Continuous Marquee Track */}
+            <div className="flex gap-4 sm:gap-6 w-max animate-testimonial-marquee hover:[animation-play-state:paused]">
+              {[...TESTIMONIALS, ...TESTIMONIALS].map((t, idx) => (
+                <div
+                  key={`${t.id}-${idx}`}
+                  className="w-[310px] sm:w-[370px] lg:w-[410px] flex-shrink-0 p-5 sm:p-6 rounded-2xl bg-[#0d0f14]/90 border border-white/10 hover:border-amber-400/50 transition-all duration-300 shadow-xl flex flex-col justify-between group"
                 >
-                  0{idx + 1}
-                </button>
+                  {/* Top Row: Avatar + Name + Rating + Google 'G' Badge */}
+                  <div>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        {/* Avatar Initial Circle */}
+                        <div
+                          className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full ${t.avatarColor} text-white font-bold text-base flex items-center justify-center shrink-0 shadow-md`}
+                        >
+                          {t.avatarLetter}
+                        </div>
+
+                        <div>
+                          <div className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
+                            {t.clientName}
+                          </div>
+                          <div className="flex text-amber-400 text-xs tracking-wider mt-0.5">
+                            {"★".repeat(t.rating)}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Google G Icon Badge */}
+                      <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
+                          <path
+                            fill="#4285F4"
+                            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                          />
+                          <path
+                            fill="#34A853"
+                            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                          />
+                          <path
+                            fill="#FBBC05"
+                            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+                          />
+                          <path
+                            fill="#EA4335"
+                            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Testimonial Quote */}
+                    <p className="mt-4 text-xs sm:text-sm text-zinc-300 leading-relaxed italic min-h-[72px]">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Card Bottom: Date & Location/Project */}
+                  <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                    <span>{t.date} · {t.location.split(",")[0]}</span>
+                    <span className="text-amber-400/90 font-medium truncate max-w-[150px] text-right">
+                      {t.projectScope.split("·")[0]}
+                    </span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
-
-          {/* Featured Testimonial Card */}
-          <div className="p-6 sm:p-10 lg:p-12 rounded-3xl bg-gradient-to-b from-[#0e1015] to-[#080a0d] border border-amber-500/20 shadow-2xl relative overflow-hidden">
-            
-            {/* Top Row: Client Info, Location & Star Rating */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
-              <div>
-                <div className="flex items-center gap-2 text-amber-400 text-sm mb-1">
-                  {"★".repeat(currentTestimonial.rating)}
-                  <span className="text-xs font-mono text-zinc-400 ml-1">5.0 VERIFIED AUDIT</span>
-                </div>
-                <div className="text-lg sm:text-2xl font-black text-white uppercase tracking-tight">
-                  {currentTestimonial.clientName}
-                </div>
-                <div className="text-xs sm:text-sm text-zinc-400">
-                  {currentTestimonial.clientRole} •{" "}
-                  <span className="text-amber-400/90 font-mono">
-                    📍 {currentTestimonial.location}
-                  </span>
-                </div>
-              </div>
-
-              <div className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-wider text-zinc-300 self-start sm:self-auto">
-                {currentTestimonial.projectScope}
-              </div>
-            </div>
-
-            {/* Quote Body */}
-            <div className="py-8">
-              <div className="text-amber-400 font-mono text-xs sm:text-sm uppercase tracking-widest font-semibold mb-3">
-                “{currentTestimonial.highlight}”
-              </div>
-              <blockquote className="text-base sm:text-xl lg:text-2xl text-zinc-200 font-normal leading-relaxed italic">
-                &ldquo;{currentTestimonial.quote}&rdquo;
-              </blockquote>
-            </div>
-
-            {/* Bottom Row: Project Metrics & Controls */}
-            <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="grid grid-cols-3 gap-3 sm:gap-6">
-                {currentTestimonial.metrics.map((m, mIdx) => (
-                  <div key={mIdx}>
-                    <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">
-                      {m.label}
-                    </div>
-                    <div className="text-xs sm:text-sm font-black text-white font-mono mt-0.5">
-                      {m.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Prev / Next Buttons */}
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setActiveTestimonial((prev) =>
-                      prev === 0 ? TESTIMONIALS.length - 1 : prev - 1
-                    )
-                  }
-                  className="px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider border border-white/10 text-zinc-300 hover:text-white hover:border-amber-400/40 transition-colors"
-                >
-                  ← Prev Client
-                </button>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setActiveTestimonial((prev) =>
-                      prev === TESTIMONIALS.length - 1 ? 0 : prev + 1
-                    )
-                  }
-                  className="px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-wider bg-amber-500 hover:bg-amber-400 text-black font-bold transition-all shadow-md shadow-amber-500/20"
-                >
-                  Next Client →
-                </button>
-              </div>
-            </div>
-
-          </div>
-
         </div>
 
       </div>

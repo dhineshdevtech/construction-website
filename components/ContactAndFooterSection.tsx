@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { scrollToSection } from "@/components/SmoothScroll";
 
 const TYPOLOGIES = [
   { id: "residence", label: "Luxury Residence / Villa", sub: "Boat Club, ECR, Poes Garden", icon: "🏛️" },
@@ -62,7 +63,7 @@ export default function ContactAndFooterSection() {
   };
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToSection(0);
   };
 
   return (

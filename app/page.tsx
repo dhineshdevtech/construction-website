@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <SmoothScroll>
       <div className="min-h-screen bg-[#0a0b0d] text-zinc-100 font-sans selection:bg-amber-500 selection:text-black">
-        {/* GLOBAL NAVIGATION: Desktop Bar & Responsive Mobile Drawer */}
+        {/* GLOBAL NAVIGATION: Top Entry Header */}
         <Navbar />
 
         {/* 1. HERO: Interactive Scroll-Scrubbed Construction Animation */}

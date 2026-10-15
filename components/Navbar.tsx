@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { scrollToSection } from "@/components/SmoothScroll";
 
 const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
@@ -40,10 +41,7 @@ export default function Navbar() {
 
   const handleLinkClick = (href: string) => {
     setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+    scrollToSection(href);
   };
 
   return (

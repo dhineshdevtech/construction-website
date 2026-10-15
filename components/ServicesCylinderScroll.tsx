@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { scrollToSection } from "@/components/SmoothScroll";
 
 interface ServiceItem {
   id: string;
@@ -131,6 +132,8 @@ export default function ServicesCylinderScroll() {
     let targetP = 0;
     let lastActiveIdx = 0;
     let rafId: number;
+    let isLoopRunning = false;
+    let isVisible = true;
 
     const onScroll = () => {
       const container = containerRef.current;
@@ -142,6 +145,7 @@ export default function ServicesCylinderScroll() {
 
       const rawProgress = Math.min(1, Math.max(0, -rect.top / scrollableHeight));
       targetP = rawProgress;
+      startLoop();
     };
 
     // Fast, GPU-accelerated 60fps render loop with zero React re-render overhead
@@ -201,11 +205,6 @@ export default function ServicesCylinderScroll() {
         }
       }
 
-      // Update bottom progress line directly in DOM
-      if (progressBarRef.current) {
-        progressBarRef.current.style.width = `${Math.max(8, (floatIdx / (SERVICES.length - 1)) * 100)}%`;
-      }
-
       // Update HUD text directly
       const currentIdx = Math.min(SERVICES.length - 1, Math.max(0, Math.round(floatIdx)));
       if (hudIndexRef.current) {
@@ -222,28 +221,71 @@ export default function ServicesCylinderScroll() {
       }
     };
 
-    // Smooth inertia loop
+    // Snappy, lag-free inertia loop with auto-sleep
     const loop = () => {
+      if (!isVisible) {
+        isLoopRunning = false;
+        return;
+      }
+
       const diff = targetP - currentP;
       if (Math.abs(diff) > 0.0001) {
-        currentP += diff * 0.14;
+        currentP += diff * 0.75; // Ultra snappy, instant response with zero drag
         updateTransforms(currentP * (SERVICES.length - 1));
+        rafId = requestAnimationFrame(loop);
+      } else {
+        currentP = targetP;
+        updateTransforms(currentP * (SERVICES.length - 1));
+        isLoopRunning = false;
       }
-      rafId = requestAnimationFrame(loop);
     };
+
+    const startLoop = () => {
+      if (!isLoopRunning && isVisible) {
+        isLoopRunning = true;
+        rafId = requestAnimationFrame(loop);
+      }
+    };
+
+    // IntersectionObserver: sleep completely when scrolled away
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          startLoop();
+        } else {
+          isLoopRunning = false;
+          cancelAnimationFrame(rafId);
+        }
+      },
+      { threshold: 0 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     onScroll();
     updateTransforms(0);
-    rafId = requestAnimationFrame(loop);
+    startLoop();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      observer.disconnect();
       cancelAnimationFrame(rafId);
     };
   }, []);
+
+  const scrollToService = (index: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const scrollableHeight = container.offsetHeight - window.innerHeight;
+    const targetY = container.offsetTop + (index / (SERVICES.length - 1)) * scrollableHeight;
+    scrollToSection(targetY);
+  };
 
   const currentService = SERVICES[activeIndex];
 
@@ -252,7 +294,7 @@ export default function ServicesCylinderScroll() {
       ref={containerRef}
       id="services"
       className="relative bg-[#06080c] text-zinc-100 select-none border-t border-white/10"
-      style={{ height: "550vh" }} // Extended runway for smooth 5-stage progression
+      style={{ height: "200vh" }} // Ultra-fast, responsive 200vh runway
     >
       {/* Background Architectural Blueprint Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
@@ -405,29 +447,31 @@ export default function ServicesCylinderScroll() {
             </div>
 
             {/* Right-Side Vertical Step Navigator Dots */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-30">
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-2.5 z-30">
               {SERVICES.map((s, dotIdx) => (
-                <div
+                <button
                   key={s.id}
-                  className={`flex items-center gap-2 transition-all duration-300 ${
-                    activeIndex === dotIdx ? "scale-125" : "opacity-40"
-                  }`}
+                  type="button"
+                  onClick={() => scrollToService(dotIdx)}
+                  className="group flex items-center justify-center p-2 rounded-full hover:bg-white/5 transition-colors cursor-pointer focus:outline-none"
+                  aria-label={`Jump to ${s.title}`}
+                  title={`${s.number} · ${s.title}`}
                 >
-                  <div
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  <span
+                    className={`block rounded-full transition-all duration-300 ${
                       activeIndex === dotIdx
-                        ? "bg-amber-400 shadow-sm shadow-amber-400"
-                        : "bg-white/40"
+                        ? "w-3 h-3 bg-amber-400 shadow-[0_0_12px_rgba(251,191,36,0.9)] scale-110"
+                        : "w-2 h-2 bg-white/30 group-hover:bg-white/60 group-hover:scale-125"
                     }`}
                   />
-                </div>
+                </button>
               ))}
             </div>
           </div>
         </div>
 
         {/* BOTTOM HUD: Architectural Progress & Engineering Standards Line */}
-        <div className="relative z-20 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 pt-4">
+        <div className="relative z-20 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10 pt-3 sm:pt-4">
           <div className="flex items-center gap-3 text-xs font-mono text-zinc-400 uppercase">
             <span ref={hudIndexRef} className="text-amber-400 font-bold">
               CAPABILITY 01 OF 05
@@ -438,9 +482,47 @@ export default function ServicesCylinderScroll() {
             </span>
           </div>
 
-          <div className="hidden md:flex items-center gap-2 text-[11px] font-mono uppercase text-zinc-500">
-            <span>Scroll Wheel to Rotate Drum</span>
-            <span className="text-amber-400 font-bold">↓</span>
+          <div className="flex items-center gap-2">
+            {/* Quick Capability Switcher Pills */}
+            <div className="flex items-center gap-1 bg-white/[0.04] p-1 rounded-xl border border-white/10">
+              {SERVICES.map((serv, idx) => (
+                <button
+                  key={serv.id}
+                  type="button"
+                  onClick={() => scrollToService(idx)}
+                  className={`px-2.5 py-1 text-[11px] font-mono rounded-lg transition-all cursor-pointer ${
+                    activeIndex === idx
+                      ? "bg-amber-400 text-black font-bold shadow-sm"
+                      : "text-zinc-400 hover:text-white hover:bg-white/5"
+                  }`}
+                  aria-label={`Jump to ${serv.title}`}
+                >
+                  {serv.number}
+                </button>
+              ))}
+            </div>
+
+            {/* Prev / Next Buttons */}
+            <div className="flex items-center gap-1 ml-1">
+              <button
+                type="button"
+                onClick={() => scrollToService(Math.max(0, activeIndex - 1))}
+                disabled={activeIndex === 0}
+                className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-zinc-300 hover:text-amber-400 hover:border-amber-400/50 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition cursor-pointer text-sm"
+                aria-label="Previous capability"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToService(Math.min(SERVICES.length - 1, activeIndex + 1))}
+                disabled={activeIndex === SERVICES.length - 1}
+                className="w-8 h-8 flex items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-zinc-300 hover:text-amber-400 hover:border-amber-400/50 hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition cursor-pointer text-sm"
+                aria-label="Next capability"
+              >
+                →
+              </button>
+            </div>
           </div>
         </div>
       </div>

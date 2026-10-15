@@ -24,3 +24,22 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes testimonial-marquee {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-testimonial-marquee {
+  animation: testimonial-marquee 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-testimonial-marquee:hover {
+  animation-play-state: paused;
+}
+

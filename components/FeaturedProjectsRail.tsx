@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { scrollToSection } from "@/components/SmoothScroll";
 
 interface Project {
   id: string;
@@ -127,48 +128,130 @@ export default function FeaturedProjectsRail() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
+  const scrollToProject = (index: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const scrollableHeight = container.offsetHeight - window.innerHeight;
+    const targetY = container.offsetTop + (index / (PROJECTS.length - 1)) * scrollableHeight;
+    scrollToSection(targetY);
+  };
+
   useEffect(() => {
+    let currentP = 0;
+    let targetP = 0;
+    let lastActiveIdx = 0;
+    let rafId: number;
+    let isLoopRunning = false;
+    let isVisible = true;
+    let maxTranslate = 0;
+
+    const measure = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      maxTranslate = Math.max(0, track.scrollWidth - window.innerWidth + 80);
+    };
+
+    const updatePosition = (progress: number) => {
+      const track = trackRef.current;
+      if (!track) return;
+
+      const currentTranslate = progress * maxTranslate;
+      track.style.transform = `translate3d(-${currentTranslate.toFixed(1)}px, 0, 0)`;
+
+      const idx = Math.min(
+        PROJECTS.length - 1,
+        Math.max(0, Math.round(progress * (PROJECTS.length - 1)))
+      );
+
+      if (idx !== lastActiveIdx) {
+        lastActiveIdx = idx;
+        setActiveIndex(idx);
+      }
+    };
+
+    const loop = () => {
+      if (!isVisible) {
+        isLoopRunning = false;
+        return;
+      }
+
+      const diff = targetP - currentP;
+      if (Math.abs(diff) > 0.0001) {
+        currentP += diff * 0.75; // Snappy, ultra-responsive tracking with zero drag
+        updatePosition(currentP);
+        rafId = requestAnimationFrame(loop);
+      } else {
+        currentP = targetP;
+        updatePosition(currentP);
+        isLoopRunning = false;
+      }
+    };
+
+    const startLoop = () => {
+      if (!isLoopRunning && isVisible) {
+        isLoopRunning = true;
+        rafId = requestAnimationFrame(loop);
+      }
+    };
+
     const onScroll = () => {
       const container = containerRef.current;
-      const track = trackRef.current;
-      if (!container || !track) return;
+      if (!container) return;
 
       const rect = container.getBoundingClientRect();
       const scrollableHeight = container.offsetHeight - window.innerHeight;
       if (scrollableHeight <= 0) return;
 
-      const progress = Math.min(1, Math.max(0, -rect.top / scrollableHeight));
-
-      // Determine which project is in center focus (only update state if index changed)
-      const idx = Math.min(
-        PROJECTS.length - 1,
-        Math.floor(progress * PROJECTS.length)
-      );
-      setActiveIndex((prev) => (prev !== idx ? idx : prev));
-
-      // Compute horizontal distance: total track scroll width minus viewport width
-      const maxTranslate = track.scrollWidth - window.innerWidth;
-      const currentTranslate = progress * maxTranslate;
-
-      track.style.transform = `translateX(-${currentTranslate}px)`;
+      const rawProgress = Math.min(1, Math.max(0, -rect.top / scrollableHeight));
+      targetP = rawProgress;
+      startLoop();
     };
 
+    // Auto-sleep when section is scrolled out of viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          measure();
+          startLoop();
+        } else {
+          isLoopRunning = false;
+          cancelAnimationFrame(rafId);
+        }
+      },
+      { threshold: 0 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", () => {
+      measure();
+      onScroll();
+    });
+
+    measure();
     onScroll();
+    updatePosition(0);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      observer.disconnect();
+      cancelAnimationFrame(rafId);
     };
   }, []);
+
+  const currentProject = PROJECTS[activeIndex];
 
   return (
     <section
       ref={containerRef}
       id="projects"
       className="relative bg-[#07080a] text-zinc-100 select-none border-t border-white/10"
-      style={{ height: "480vh" }} // Runway for comfortable 56vw cards
+      style={{ height: "220vh" }} // Shortened from 480vh for swift, effortless, 2x faster scrolling
     >
       {/* Sticky Fullscreen Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-12">
@@ -186,17 +269,20 @@ export default function FeaturedProjectsRail() {
             </h2>
           </div>
 
-          {/* Category Pill Indicator */}
+          {/* Interactive Category Pill Indicator */}
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
             {PROJECTS.map((p, i) => (
               <button
                 key={p.id}
                 type="button"
-                className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-wider transition-all duration-300 border shrink-0 ${
+                onClick={() => scrollToProject(i)}
+                className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-wider transition-all duration-300 border shrink-0 cursor-pointer ${
                   activeIndex === i
-                    ? "bg-amber-500/20 text-amber-300 border-amber-400/50 shadow-sm shadow-amber-500/20"
-                    : "bg-white/[0.02] text-zinc-400 border-white/5 hover:text-white"
+                    ? "bg-amber-500/25 text-amber-300 border-amber-400/60 shadow-sm shadow-amber-500/20"
+                    : "bg-white/[0.02] text-zinc-400 border-white/5 hover:text-white hover:bg-white/[0.05]"
                 }`}
+                title={`Jump to ${p.title}`}
+                aria-label={`Jump to ${p.category}`}
               >
                 {p.category.split(" ")[0]}
               </button>
@@ -204,11 +290,11 @@ export default function FeaturedProjectsRail() {
           </div>
         </div>
 
-        {/* MIDDLE: Horizontal Sliding Reel of Project Cards */}
+        {/* MIDDLE: Horizontal Sliding Reel of Project Cards (Zero CSS Transition Lag) */}
         <div className="relative w-full flex-1 my-auto flex items-center overflow-visible">
           <div
             ref={trackRef}
-            className="flex gap-5 sm:gap-8 md:gap-12 pl-1 sm:pl-2 pr-16 sm:pr-24 will-change-transform transition-transform ease-out"
+            className="flex gap-5 sm:gap-8 md:gap-12 pl-1 sm:pl-2 pr-16 sm:pr-24 will-change-transform"
             style={{ width: "max-content" }}
           >
             {PROJECTS.map((proj, idx) => {
@@ -216,9 +302,9 @@ export default function FeaturedProjectsRail() {
               return (
                 <div
                   key={proj.id}
-                  className={`group relative flex-shrink-0 w-[88vw] sm:w-[75vw] md:w-[64vw] lg:w-[56vw] max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900/90 to-[#0e1015] border transition-all duration-500 ${
+                  className={`group relative flex-shrink-0 w-[88vw] sm:w-[75vw] md:w-[64vw] lg:w-[56vw] max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900/90 to-[#0e1015] border transition-all duration-300 ${
                     isCurrent
-                      ? "border-amber-400/40 shadow-2xl shadow-amber-500/10 scale-100"
+                      ? "border-amber-400/50 shadow-2xl shadow-amber-500/10 scale-100"
                       : "border-white/10 opacity-70 hover:opacity-100 scale-[0.98]"
                   }`}
                 >
@@ -302,8 +388,6 @@ export default function FeaturedProjectsRail() {
             })}
           </div>
         </div>
-
-
       </div>
     </section>
   );

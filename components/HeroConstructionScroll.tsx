@@ -218,8 +218,8 @@ export default function HeroConstructionScroll() {
 
       const diff = targetProgress - currentProgress;
       if (Math.abs(diff) > 0.0001) {
-        // High damping factor (0.75) tracks Lenis inertia in real-time with zero input lag
-        currentProgress += diff * 0.75;
+        // High damping factor (0.85) tracks Lenis inertia in real-time with zero input lag
+        currentProgress += diff * 0.85;
         const targetFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
         renderFrame(targetFrame);
 
@@ -301,8 +301,9 @@ export default function HeroConstructionScroll() {
   return (
     <div
       ref={containerRef}
+      id="hero"
       className="relative w-full bg-[#0a0b0d]"
-      style={{ height: "680vh" }} // Tuned to 680vh for smooth, natural construction progression
+      style={{ height: "260vh" }} // Shortened from 680vh for over 60% faster, effortless scrolling
     >
       {/* Sticky Canvas & Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between select-none">
@@ -348,29 +349,20 @@ export default function HeroConstructionScroll() {
 
         {/* BOTTOM OVERLAY: Live Interactive Construction Phase HUD */}
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 pb-4 sm:pb-8">
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-3 sm:gap-6 bg-black/50 backdrop-blur-md border border-white/10 rounded-xl p-3.5 sm:p-5 shadow-2xl">
-            {/* Left: Dynamic Phase Info */}
-            <div className="flex-1">
-              <div className="flex items-center gap-2.5 sm:gap-3 mb-1">
-                <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
-                  {currentPhase.tag}
-                </span>
-              </div>
-              <h2 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-tight">
-                {currentPhase.title}
-              </h2>
-              <p className="text-[11px] sm:text-xs md:text-sm text-zinc-400 mt-0.5 max-w-xl line-clamp-2 sm:line-clamp-none">
-                {currentPhase.desc}
-              </p>
+          <div className="bg-black/60 backdrop-blur-md border border-white/10 rounded-xl p-3.5 sm:p-5 shadow-2xl">
+            {/* Dynamic Phase Info */}
+            <div className="flex items-center gap-2.5 sm:gap-3 mb-1">
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
+                {currentPhase.tag}
+              </span>
             </div>
-
-            {/* Right: Architectural Scroll Hint (No Loading/Progress Bar) */}
-            <div className="flex items-center gap-2 text-[10px] sm:text-[11px] font-mono text-zinc-400 uppercase tracking-wider shrink-0 self-start sm:self-auto">
-              <span>Scroll to Build</span>
-              <span className="text-amber-400 font-bold">↓</span>
-            </div>
+            <h2 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-tight">
+              {currentPhase.title}
+            </h2>
+            <p className="text-[11px] sm:text-xs md:text-sm text-zinc-400 mt-0.5 max-w-2xl line-clamp-2 sm:line-clamp-none">
+              {currentPhase.desc}
+            </p>
           </div>
-
         </div>
       </div>
     </div>
