@@ -21,49 +21,49 @@ export default function Home() {
         <AboutCompanySection />
 
         {/* 5. PROCESS ROADMAP */}
-        <section id="phases" className="py-28 px-6 bg-[#0a0b0d] border-t border-white/10">
+        <section id="phases" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-6 bg-[#0a0b0d] border-t border-white/10">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center max-w-2xl mx-auto mb-20">
-              <span className="text-amber-400 font-mono text-xs uppercase tracking-widest font-semibold">
+            <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 lg:mb-20">
+              <span className="text-amber-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest font-semibold">
                 05 / The Process
               </span>
-              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight mt-3">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight mt-2 sm:mt-3">
                 Precision at Every Stage
               </h2>
-              <p className="text-zinc-400 mt-4 text-sm md:text-base">
+              <p className="text-zinc-400 mt-2.5 sm:mt-4 text-xs sm:text-sm md:text-base">
                 Weekly digital progress audits, live drone inspections, and transparent fixed-cost milestones.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="border-t-2 border-amber-500/40 pt-6">
-                <div className="text-4xl font-black text-zinc-700 font-mono mb-2">01</div>
-                <h4 className="text-lg font-bold text-white uppercase">Site & Soil Dynamics</h4>
-                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+              <div className="border-t-2 border-amber-500/40 pt-4 sm:pt-6">
+                <div className="text-3xl sm:text-4xl font-black text-zinc-700 font-mono mb-1.5 sm:mb-2">01</div>
+                <h4 className="text-base sm:text-lg font-bold text-white uppercase">Site & Soil Dynamics</h4>
+                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
                   Geotechnical borehole testing, water table analysis, and CMDA compliance approval.
                 </p>
               </div>
 
-              <div className="border-t-2 border-amber-500/40 pt-6">
-                <div className="text-4xl font-black text-zinc-700 font-mono mb-2">02</div>
-                <h4 className="text-lg font-bold text-white uppercase">BIM & 3D Engineering</h4>
-                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+              <div className="border-t-2 border-amber-500/40 pt-4 sm:pt-6">
+                <div className="text-3xl sm:text-4xl font-black text-zinc-700 font-mono mb-1.5 sm:mb-2">02</div>
+                <h4 className="text-base sm:text-lg font-bold text-white uppercase">BIM & 3D Engineering</h4>
+                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
                   Full virtual structural modeling, clash detection, and photorealistic client walkthroughs.
                 </p>
               </div>
 
-              <div className="border-t-2 border-amber-500/40 pt-6">
-                <div className="text-4xl font-black text-zinc-700 font-mono mb-2">03</div>
-                <h4 className="text-lg font-bold text-white uppercase">Superstructure Build</h4>
-                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+              <div className="border-t-2 border-amber-500/40 pt-4 sm:pt-6">
+                <div className="text-3xl sm:text-4xl font-black text-zinc-700 font-mono mb-1.5 sm:mb-2">03</div>
+                <h4 className="text-base sm:text-lg font-bold text-white uppercase">Superstructure Build</h4>
+                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
                   Ready-mix concrete batches, ultrasonic rebar testing, and laser-guided leveling.
                 </p>
               </div>
 
-              <div className="border-t-2 border-amber-500 pt-6">
-                <div className="text-4xl font-black text-amber-500 font-mono mb-2">04</div>
-                <h4 className="text-lg font-bold text-white uppercase">Turnkey Handover</h4>
-                <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+              <div className="border-t-2 border-amber-500 pt-4 sm:pt-6">
+                <div className="text-3xl sm:text-4xl font-black text-amber-500 font-mono mb-1.5 sm:mb-2">04</div>
+                <h4 className="text-base sm:text-lg font-bold text-white uppercase">Turnkey Handover</h4>
+                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
                   Complete snag-free inspection, 10-year structural warranty, and ceremonial keys delivery.
                 </p>
               </div>
@@ -71,49 +71,49 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. CTA / CONTACT SECTION */}
-        <section id="contact" className="relative py-32 px-6 bg-gradient-to-b from-[#0e1014] to-[#0a0b0d] border-t border-white/10 text-center">
+        {/* 6. CTA / CONTACT SECTION */}
+        <section id="contact" className="relative py-20 sm:py-28 lg:py-32 px-4 sm:px-6 bg-gradient-to-b from-[#0e1014] to-[#0a0b0d] border-t border-white/10 text-center">
           <div className="max-w-3xl mx-auto">
-            <span className="text-amber-400 font-mono text-xs uppercase tracking-widest font-semibold">
-              03 / Build With Us
+            <span className="text-amber-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest font-semibold">
+              06 / Build With Us
             </span>
-            <h2 className="text-4xl sm:text-6xl font-black text-white uppercase tracking-tight mt-4 leading-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-white uppercase tracking-tight mt-3 sm:mt-4 leading-tight">
               Ready to Build Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
                 Chennai Landmark?
               </span>
             </h2>
-            <p className="mt-6 text-zinc-400 text-base md:text-lg">
+            <p className="mt-4 sm:mt-6 text-zinc-400 text-xs sm:text-base md:text-lg max-w-xl mx-auto">
               Schedule a confidential consultation with our principal architects and engineering directors.
             </p>
 
-            <form className="mt-10 max-w-xl mx-auto flex flex-col sm:flex-row gap-3">
+            <form className="mt-8 sm:mt-10 max-w-xl mx-auto flex flex-col sm:flex-row gap-3">
               <input
                 type="text"
                 placeholder="Your Phone or Email"
-                className="flex-1 px-5 py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-amber-400"
+                className="flex-1 px-4 sm:px-5 py-3.5 sm:py-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-zinc-500 text-xs sm:text-sm focus:outline-none focus:border-amber-400"
               />
               <button
                 type="button"
-                className="px-8 py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 shadow-xl shadow-amber-500/20"
+                className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 shadow-xl shadow-amber-500/20"
               >
                 Request Consultation
               </button>
             </form>
 
-            <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-xs text-zinc-500">
+            <div className="mt-6 sm:mt-8 flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-[11px] sm:text-xs text-zinc-500">
               <span>📍 Boat Club Road, RA Puram, Chennai</span>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <span>📞 +91 (044) 4800 2900</span>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <span>✉️ build@coromandellandmarks.com</span>
             </div>
           </div>
         </section>
 
-        {/* 6. FOOTER */}
-        <footer className="py-8 px-6 border-t border-white/5 text-center text-xs text-zinc-600">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+        {/* 7. FOOTER */}
+        <footer className="py-6 sm:py-8 px-4 sm:px-6 border-t border-white/5 text-center text-[11px] sm:text-xs text-zinc-600">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
             <div className="font-bold text-zinc-400 tracking-wider">
               COROMANDEL LANDMARKS © 2026
             </div>

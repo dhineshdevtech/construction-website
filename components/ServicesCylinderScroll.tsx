@@ -267,52 +267,56 @@ export default function ServicesCylinderScroll() {
       </div>
 
       {/* Sticky Fullscreen Stage */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-8 px-6 md:px-14">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-4 sm:py-6 lg:py-8 px-4 sm:px-6 md:px-14">
         {/* TOP BAR: Section Title & Header */}
-        <div className="relative z-20 flex items-center justify-between border-b border-white/10 pb-5">
-          <div className="flex items-center gap-3">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
-            <span className="text-amber-400 font-mono text-xs uppercase tracking-widest font-semibold">
+        <div className="relative z-20 flex items-center justify-between border-b border-white/10 pb-3 sm:pb-5">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-amber-400 animate-pulse" />
+            <span className="text-amber-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest font-semibold">
               03 / Comprehensive Capabilities
             </span>
           </div>
-          <div className="text-xs font-mono text-zinc-400 uppercase tracking-widest hidden sm:block">
+          <div className="text-[11px] sm:text-xs font-mono text-zinc-400 uppercase tracking-widest hidden sm:block">
             Chennai Architectural Engineering
           </div>
         </div>
 
         {/* MIDDLE: 3D CYLINDRICAL SPLIT-SCREEN VIEWPORT */}
-        <div className="relative z-20 flex-1 my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+        <div className="relative z-20 flex-1 my-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-14 items-center">
           {/* LEFT COLUMN: Dynamic Service Info (Typography & Deliverables) */}
           <div className="lg:col-span-5 flex flex-col justify-center">
             {/* Step Counter */}
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-3xl md:text-5xl font-black font-mono text-amber-400 tracking-tight">
-                {currentService.number}
-              </span>
-              <span className="text-zinc-600 font-mono text-xl">/ 05</span>
-              <span className="h-4 w-[1px] bg-white/20 mx-1" />
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 font-semibold">
+            <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-3 min-w-0">
+              <div className="flex items-baseline gap-1.5 shrink-0 whitespace-nowrap">
+                <span className="text-2xl sm:text-4xl md:text-5xl font-black font-mono text-amber-400 tracking-tight">
+                  {currentService.number}
+                </span>
+                <span className="text-zinc-500 font-mono text-sm sm:text-lg font-semibold">
+                  / 05
+                </span>
+              </div>
+              <span className="h-3.5 sm:h-4 w-[1px] bg-white/20 shrink-0" />
+              <span className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-zinc-400 font-semibold truncate">
                 {currentService.subtitle}
               </span>
             </div>
 
             {/* Service Main Title */}
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-tight leading-[0.95] mb-6">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight leading-[0.98] sm:leading-[0.95] mb-2 sm:mb-4 lg:mb-6">
               {currentService.title}
             </h2>
 
             {/* Description */}
-            <p className="text-zinc-300 text-sm sm:text-base leading-relaxed mb-6 max-w-xl">
+            <p className="text-zinc-300 text-xs sm:text-sm md:text-base leading-relaxed mb-3 sm:mb-6 max-w-xl line-clamp-2 sm:line-clamp-none">
               {currentService.description}
             </p>
 
             {/* Deliverables Checklist Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-8 max-w-xl">
+            <div className="grid grid-cols-2 gap-1.5 sm:gap-2.5 mb-3 sm:mb-6 max-w-xl">
               {currentService.deliverables.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white/[0.03] border border-white/5 text-xs text-zinc-300"
+                  className="flex items-center gap-2 p-1.5 sm:p-2.5 rounded-lg bg-white/[0.03] border border-white/5 text-[11px] sm:text-xs text-zinc-300"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
                   <span className="font-medium truncate">{item}</span>
@@ -321,13 +325,13 @@ export default function ServicesCylinderScroll() {
             </div>
 
             {/* Technical Specs HUD Ticker */}
-            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 max-w-xl">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-2.5 sm:pt-4 border-t border-white/10 max-w-xl">
               {currentService.metrics.map((m, mIdx) => (
                 <div key={mIdx}>
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500">
+                  <div className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-zinc-500">
                     {m.label}
                   </div>
-                  <div className="text-xs sm:text-sm font-bold text-white tracking-tight mt-0.5 truncate">
+                  <div className="text-[11px] sm:text-sm font-bold text-white tracking-tight mt-0.5 truncate">
                     {m.value}
                   </div>
                 </div>
@@ -337,7 +341,7 @@ export default function ServicesCylinderScroll() {
 
           {/* RIGHT COLUMN: 3D CURVED ORBITAL STAGE (TAKES MORE SPACE) */}
           <div
-            className="lg:col-span-7 relative h-[440px] sm:h-[540px] md:h-[620px] w-full flex items-center justify-center"
+            className="lg:col-span-7 relative h-[220px] sm:h-[320px] md:h-[420px] lg:h-[620px] w-full flex items-center justify-center"
             style={{
               perspective: "1400px",
               perspectiveOrigin: "center center",

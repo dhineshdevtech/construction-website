@@ -125,7 +125,6 @@ const PROJECTS: Project[] = [
 export default function FeaturedProjectsRail() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -139,14 +138,13 @@ export default function FeaturedProjectsRail() {
       if (scrollableHeight <= 0) return;
 
       const progress = Math.min(1, Math.max(0, -rect.top / scrollableHeight));
-      setScrollProgress(progress);
 
-      // Determine which project is in center focus
+      // Determine which project is in center focus (only update state if index changed)
       const idx = Math.min(
         PROJECTS.length - 1,
         Math.floor(progress * PROJECTS.length)
       );
-      setActiveIndex(idx);
+      setActiveIndex((prev) => (prev !== idx ? idx : prev));
 
       // Compute horizontal distance: total track scroll width minus viewport width
       const maxTranslate = track.scrollWidth - window.innerWidth;
@@ -170,31 +168,31 @@ export default function FeaturedProjectsRail() {
       ref={containerRef}
       id="portfolio"
       className="relative bg-[#07080a] text-zinc-100 select-none border-t border-white/10"
-      style={{ height: "560vh" }} // 5.6x viewport runway for smooth 6-project glide
+      style={{ height: "480vh" }} // Runway for comfortable 56vw cards
     >
       {/* Sticky Fullscreen Viewport */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-8 px-6 md:px-12">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-4 sm:py-6 md:py-8 px-4 sm:px-6 md:px-12">
         {/* TOP BAR: Section Title & Category Navigator */}
-        <div className="relative z-20 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="relative z-20 flex flex-col md:flex-row md:items-end justify-between gap-2.5 sm:gap-3 border-b border-white/10 pb-3 sm:pb-4">
           <div>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-amber-400" />
-              <span className="text-amber-400 font-mono text-xs uppercase tracking-widest font-semibold">
+              <span className="text-amber-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest font-semibold">
                 02 / Portfolio & Engineering Landmarks
               </span>
             </div>
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight mt-1">
+            <h2 className="text-lg sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tight mt-0.5 sm:mt-1">
               Featured Projects<span className="text-amber-400">.</span>
             </h2>
           </div>
 
           {/* Category Pill Indicator */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
             {PROJECTS.map((p, i) => (
               <button
                 key={p.id}
                 type="button"
-                className={`px-3 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 border ${
+                className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-mono uppercase tracking-wider transition-all duration-300 border shrink-0 ${
                   activeIndex === i
                     ? "bg-amber-500/20 text-amber-300 border-amber-400/50 shadow-sm shadow-amber-500/20"
                     : "bg-white/[0.02] text-zinc-400 border-white/5 hover:text-white"
@@ -210,7 +208,7 @@ export default function FeaturedProjectsRail() {
         <div className="relative w-full flex-1 my-auto flex items-center overflow-visible">
           <div
             ref={trackRef}
-            className="flex gap-8 md:gap-12 pl-2 pr-24 will-change-transform transition-transform ease-out"
+            className="flex gap-5 sm:gap-8 md:gap-12 pl-1 sm:pl-2 pr-16 sm:pr-24 will-change-transform transition-transform ease-out"
             style={{ width: "max-content" }}
           >
             {PROJECTS.map((proj, idx) => {
@@ -218,7 +216,7 @@ export default function FeaturedProjectsRail() {
               return (
                 <div
                   key={proj.id}
-                  className={`group relative flex-shrink-0 w-[85vw] md:w-[68vw] lg:w-[62vw] max-w-5xl rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900/90 to-[#0e1015] border transition-all duration-500 ${
+                  className={`group relative flex-shrink-0 w-[88vw] sm:w-[75vw] md:w-[64vw] lg:w-[56vw] max-w-5xl rounded-2xl md:rounded-3xl overflow-hidden bg-gradient-to-b from-zinc-900/90 to-[#0e1015] border transition-all duration-500 ${
                     isCurrent
                       ? "border-amber-400/40 shadow-2xl shadow-amber-500/10 scale-100"
                       : "border-white/10 opacity-70 hover:opacity-100 scale-[0.98]"
@@ -230,50 +228,50 @@ export default function FeaturedProjectsRail() {
                       src={proj.image}
                       alt={proj.title}
                       fill
-                      sizes="(max-width: 768px) 90vw, 65vw"
+                      sizes="(max-width: 768px) 90vw, 60vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                       priority={idx === 0}
                     />
 
                     {/* Gradient overlay for text contrast */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/40" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/30" />
 
                     {/* Status Badge (Top-Right) */}
-                    <div className="absolute top-5 right-5 z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10">
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10">
                       <span
-                        className={`w-2 h-2 rounded-full ${
+                        className={`w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full ${
                           proj.status === "Completed"
                             ? "bg-emerald-400 shadow-sm shadow-emerald-400/50"
                             : "bg-amber-400 animate-pulse shadow-sm shadow-amber-400/50"
                         }`}
                       />
-                      <span className="text-[11px] font-mono tracking-wider uppercase font-semibold text-white">
+                      <span className="text-[9px] sm:text-[11px] font-mono tracking-wider uppercase font-semibold text-white">
                         {proj.status.toUpperCase()} · {proj.statusDetail}
                       </span>
                     </div>
 
                     {/* Category Tag (Top-Left) */}
-                    <div className="absolute top-5 left-5 z-10">
-                      <span className="px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[11px] font-mono tracking-widest uppercase text-amber-300 font-semibold">
+                    <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-10">
+                      <span className="px-2.5 sm:px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[9px] sm:text-[11px] font-mono tracking-widest uppercase text-amber-300 font-semibold">
                         {proj.category}
                       </span>
                     </div>
 
                     {/* Content Layer (Over Photo Bottom) */}
-                    <div className="absolute bottom-6 left-6 right-6 z-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div className="absolute bottom-3.5 left-3.5 right-3.5 sm:bottom-5 sm:left-5 sm:right-5 z-10 flex flex-col md:flex-row md:items-end justify-between gap-2 sm:gap-4">
                       <div className="max-w-2xl">
-                        <div className="text-zinc-400 font-mono text-xs uppercase tracking-wider mb-1 flex items-center gap-2">
+                        <div className="text-zinc-400 font-mono text-[10px] sm:text-xs uppercase tracking-wider mb-0.5 sm:mb-1 flex items-center gap-1.5 sm:gap-2">
                           <span>📍 {proj.location}</span>
                           <span>•</span>
                           <span className="text-amber-400 font-bold">{proj.scale}</span>
                         </div>
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-white uppercase tracking-tight">
+                        <h3 className="text-base sm:text-2xl md:text-3xl lg:text-4xl font-black text-white uppercase tracking-tight leading-tight">
                           {proj.title}
                         </h3>
                       </div>
 
-                      <div className="flex items-center gap-2">
-                        <span className="text-4xl md:text-5xl font-black font-mono text-white/30 tracking-tighter">
+                      <div className="hidden sm:flex items-center gap-2">
+                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-mono text-white/30 tracking-tighter">
                           {proj.number}
                         </span>
                       </div>
@@ -281,19 +279,19 @@ export default function FeaturedProjectsRail() {
                   </div>
 
                   {/* Bottom Technical Spec Bar */}
-                  <div className="p-5 md:p-6 bg-black/50 backdrop-blur-md border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-zinc-300">
+                  <div className="p-3 sm:p-4 md:p-5 bg-black/50 backdrop-blur-md border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                    <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-1.5 sm:gap-3 text-[11px] sm:text-xs text-zinc-300">
                       {proj.specs.map((spec, sIdx) => (
-                        <div key={sIdx} className="flex items-start gap-2">
+                        <div key={sIdx} className="flex items-start gap-1.5 sm:gap-2">
                           <span className="text-amber-400 font-bold font-mono">0{sIdx + 1}</span>
-                          <span className="text-zinc-400 leading-snug">{spec}</span>
+                          <span className="text-zinc-400 leading-snug line-clamp-1 sm:line-clamp-none">{spec}</span>
                         </div>
                       ))}
                     </div>
 
                     <a
                       href="#contact"
-                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs uppercase tracking-wider transition-transform hover:scale-105 shrink-0 shadow-lg shadow-amber-500/20"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-[11px] sm:text-xs uppercase tracking-wider transition-transform hover:scale-105 shrink-0 shadow-md shadow-amber-500/20"
                     >
                       <span>Inquire Blueprint</span>
                       <span>→</span>
@@ -305,35 +303,7 @@ export default function FeaturedProjectsRail() {
           </div>
         </div>
 
-        {/* BOTTOM HUD: Scroll Timeline & Status Bar */}
-        <div className="relative z-20 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/10 pt-4">
-          <div className="flex items-center gap-3 text-xs font-mono text-zinc-400 uppercase">
-            <span className="text-amber-400 font-bold">
-              0{activeIndex + 1} / 0{PROJECTS.length}
-            </span>
-            <span className="hidden sm:inline text-zinc-600">|</span>
-            <span className="text-zinc-300 truncate max-w-[200px] sm:max-w-none">
-              {PROJECTS[activeIndex].title}
-            </span>
-          </div>
 
-          {/* Interactive Progress Line */}
-          <div className="w-full sm:w-80 flex items-center gap-3">
-            <span className="text-[10px] font-mono uppercase text-zinc-500">01 / Residential</span>
-            <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all duration-150"
-                style={{ width: `${Math.max(6, scrollProgress * 100)}%` }}
-              />
-            </div>
-            <span className="text-[10px] font-mono uppercase text-amber-400">06 / Campus</span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-2 text-[11px] font-mono uppercase text-zinc-500">
-            <span>Scroll Wheel to Glide Reel</span>
-            <span className="animate-pulse">→</span>
-          </div>
-        </div>
       </div>
     </section>
   );

@@ -265,16 +265,16 @@ export default function HeroConstructionScroll() {
         <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#0a0b0d]/75 via-transparent via-50% to-[#0a0b0d]/90" />
 
         {/* TOP: Fixed Navigation Header */}
-        <header className="relative z-20 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-black text-amber-400 text-lg">
+        <header className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6 flex items-center justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-black text-amber-400 text-base sm:text-lg">
               C
             </div>
             <div>
-              <div className="text-white font-bold tracking-widest text-sm uppercase">
+              <div className="text-white font-bold tracking-widest text-xs sm:text-sm uppercase">
                 COROMANDEL <span className="text-amber-400 font-light">LANDMARKS</span>
               </div>
-              <div className="text-[10px] text-zinc-400 uppercase tracking-widest">
+              <div className="text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-widest">
                 Chennai · Luxury Design-Build
               </div>
             </div>
@@ -290,7 +290,7 @@ export default function HeroConstructionScroll() {
 
           <a
             href="#contact"
-            className="px-5 py-2.5 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs tracking-wider uppercase transition-transform hover:scale-105 shadow-lg shadow-amber-500/20"
+            className="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded bg-amber-500 hover:bg-amber-400 text-black font-bold text-[11px] sm:text-xs tracking-wider uppercase transition-transform hover:scale-105 shadow-lg shadow-amber-500/20"
           >
             Start Your Build
           </a>
@@ -298,55 +298,55 @@ export default function HeroConstructionScroll() {
 
         {/* CENTER: Main Hero Text (Slowly fades as scroll begins) */}
         <div
-          className="relative z-10 max-w-5xl mx-auto px-6 text-center my-auto transition-transform duration-300 pointer-events-none"
+          className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center my-auto transition-transform duration-300 pointer-events-none"
           style={{
             opacity: Math.max(0, 1 - scrollProgress * 3.0),
             transform: `translateY(-${scrollProgress * 70}px)`,
           }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-xs tracking-widest uppercase mb-4">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3 sm:py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-[10px] sm:text-xs tracking-widest uppercase mb-3 sm:mb-4">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-400 animate-pulse" />
             From Coastal Earth to Iconic Skyline
           </div>
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tight uppercase leading-[0.92]">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight uppercase leading-[0.94] sm:leading-[0.92]">
             We Build What <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
               You Imagine.
             </span>
           </h1>
-          <p className="mt-6 text-base sm:text-lg md:text-xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="mt-4 sm:mt-6 text-xs sm:text-base md:text-xl text-zinc-300 max-w-2xl mx-auto font-light leading-relaxed">
             From ground-breaking to grand handover — bespoke architectural villas and luxury developments across Chennai.
           </p>
         </div>
 
         {/* BOTTOM OVERLAY: Live Interactive Construction Phase HUD */}
-        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 pb-8">
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl p-5 shadow-2xl">
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 pb-4 sm:pb-8">
+          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-3 sm:gap-6 bg-black/50 backdrop-blur-md border border-white/10 rounded-xl p-3.5 sm:p-5 shadow-2xl">
             {/* Left: Dynamic Phase Info */}
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-1.5">
-                <span className="text-[11px] font-mono tracking-widest uppercase text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
+              <div className="flex items-center gap-2.5 sm:gap-3 mb-1">
+                <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-amber-400 font-bold px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
                   {currentPhase.tag}
                 </span>
-                <span className="text-xs text-zinc-400 font-mono">
+                <span className="text-[11px] sm:text-xs text-zinc-400 font-mono">
                   {Math.round(scrollProgress * 100)}% COMPLETE
                 </span>
               </div>
-              <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight">
+              <h2 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-tight">
                 {currentPhase.title}
               </h2>
-              <p className="text-xs md:text-sm text-zinc-400 mt-1 max-w-xl">
+              <p className="text-[11px] sm:text-xs md:text-sm text-zinc-400 mt-0.5 max-w-xl line-clamp-2 sm:line-clamp-none">
                 {currentPhase.desc}
               </p>
             </div>
 
             {/* Right: Progress Scrub Bar */}
-            <div className="w-full md:w-72 flex flex-col gap-2">
-              <div className="flex justify-between text-[11px] font-mono uppercase text-zinc-400">
+            <div className="w-full md:w-72 flex flex-col gap-1.5 sm:gap-2">
+              <div className="flex justify-between text-[10px] sm:text-[11px] font-mono uppercase text-zinc-400">
                 <span>Excavation</span>
                 <span className="text-amber-400">Completed Landmark</span>
               </div>
-              <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden p-0.5">
+              <div className="w-full h-1.5 sm:h-2 bg-white/10 rounded-full overflow-hidden p-0.5">
                 <div
                   className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all duration-150"
                   style={{ width: `${Math.max(4, scrollProgress * 100)}%` }}

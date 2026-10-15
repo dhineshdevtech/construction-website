@@ -188,64 +188,28 @@ export default function AboutCompanySection() {
 
   return (
     <section id="about" className="relative z-10 bg-[#090b0e] border-t border-white/10 text-white">
-      {/* Top Section Intro Banner */}
-      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12 lg:pt-32 lg:pb-16 border-b border-white/5">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-              <span className="text-amber-400 font-mono text-xs uppercase tracking-widest font-semibold">
-                04 / Architectural Heritage & Philosophy
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white uppercase tracking-tight mt-4 leading-[1.05]">
-              Built On Integrity. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">
-                Defined By Precision.
-              </span>
-            </h2>
-          </div>
-
-          <div className="max-w-md lg:text-right">
-            <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
-              Explore how we translate architectural ambition into generational landmarks across
-              four core tenets of our practice.
-            </p>
-          </div>
-        </div>
-
-        {/* Chapter Quick Jump Pills */}
-        <div className="mt-10 flex flex-wrap gap-2 sm:gap-3">
-          {CHAPTERS.map((ch, idx) => (
-            <button
-              key={ch.id}
-              onClick={() => scrollToChapter(idx)}
-              className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 flex items-center gap-2 cursor-pointer ${
-                activeChapter === idx
-                  ? "bg-amber-500 text-black font-bold shadow-lg shadow-amber-500/20 scale-105"
-                  : "bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 border border-white/5"
-              }`}
-            >
-              <span
-                className={`w-1.5 h-1.5 rounded-full ${
-                  activeChapter === idx ? "bg-black" : "bg-zinc-600"
-                }`}
-              />
-              {ch.chapterNumber} // {ch.tag.split("&")[0].trim()}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Split-Screen Scrollytelling Body */}
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 relative">
+      {/* Unified Split-Screen Scrollytelling Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-14 relative">
           
           {/* ========================================================= */}
-          {/* LEFT COLUMN: Sticky 100vh Viewport with Site Photograph & HUD Telemetry */}
+          {/* LEFT COLUMN: Sticky Site Photograph & Live Telemetry */}
           {/* ========================================================= */}
-          <div className="lg:col-span-6 lg:sticky lg:top-0 lg:h-screen flex items-center justify-center py-8 lg:py-16">
-            <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3] max-h-[80vh] rounded-2xl overflow-hidden border border-white/15 bg-black/80 shadow-2xl shadow-black/80 group">
+          <div className="lg:col-span-6 sticky top-0 lg:h-screen flex flex-col justify-center pt-3 pb-3 sm:pt-4 sm:pb-4 lg:py-10 z-30 bg-[#090b0e]/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b lg:border-b-0 border-white/5">
+            <div className="flex items-center justify-between mb-2.5 sm:mb-4">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className="text-amber-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest font-semibold">
+                  04 / About the Firm
+                </span>
+              </div>
+              <span className="text-zinc-500 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider whitespace-nowrap shrink-0">
+                CHAPTER {currentChapter.chapterNumber} // 04
+              </span>
+            </div>
+
+            {/* The Sticky Site Photograph Frame with Live HUD Telemetry */}
+            <div className="relative w-full aspect-[16/9] sm:aspect-[16/10] lg:aspect-[4/3] max-h-[28vh] sm:max-h-[38vh] lg:max-h-[72vh] rounded-xl sm:rounded-2xl overflow-hidden border border-white/15 bg-black/80 shadow-2xl shadow-black/80 group">
               
               {/* Layered Site Photographs with Crossfade */}
               {CHAPTERS.map((ch, idx) => {
@@ -268,7 +232,7 @@ export default function AboutCompanySection() {
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                     {/* Architectural Vignette Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090b0e] via-[#090b0e]/30 to-black/60 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#090b0e]/70 via-transparent to-transparent pointer-events-none" />
                   </div>
                 );
               })}
@@ -276,57 +240,13 @@ export default function AboutCompanySection() {
               {/* TELEMETRY OVERLAY / HUD LAYER */}
               <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none z-10 font-mono text-[11px]">
                 
-                {/* Top HUD: Coordinates & Live Indicator */}
-                <div className="flex items-center justify-between gap-2 bg-black/60 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/10 text-zinc-300">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                    <span className="text-white font-bold tracking-wider">
-                      {currentChapter.telemetry.siteCode}
-                    </span>
-                  </div>
-                  <div className="text-zinc-400 hidden sm:block text-[10px]">
-                    {currentChapter.telemetry.coordinates}
-                  </div>
-                </div>
 
-                {/* Reticle / Crosshair Guides */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  {/* Subtle Crosshair Lines */}
-                  <div className="w-16 h-px bg-white/20" />
-                  <div className="h-16 w-px bg-white/20" />
-                  <div className="absolute w-24 h-24 rounded-full border border-white/10" />
-                  {/* Four Corner Marks */}
-                  <div className="absolute top-14 left-6 w-3 h-3 border-t border-l border-amber-400/50" />
-                  <div className="absolute top-14 right-6 w-3 h-3 border-t border-r border-amber-400/50" />
-                  <div className="absolute bottom-16 left-6 w-3 h-3 border-b border-l border-amber-400/50" />
-                  <div className="absolute bottom-16 right-6 w-3 h-3 border-b border-r border-amber-400/50" />
-                </div>
 
-                {/* Bottom HUD: Dynamic Chapter Badge & Specs Readout */}
-                <div className="space-y-2">
-                  <div className="bg-black/75 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-lg">
-                    <div className="flex items-center justify-between text-xs text-amber-400 font-bold mb-1">
-                      <span>{currentChapter.tag}</span>
-                      <span className="text-white bg-amber-500/20 px-2 py-0.5 rounded text-[10px] border border-amber-500/30">
-                        CHAPTER {currentChapter.chapterNumber} / 04
-                      </span>
-                    </div>
-                    <div className="text-white font-sans text-sm font-bold truncate">
-                      {currentChapter.title}
-                    </div>
-                    <div className="mt-2.5 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-zinc-400">
-                      <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        {currentChapter.telemetry.status}
-                      </span>
-                      <span className="text-zinc-300 font-mono">
-                        {currentChapter.telemetry.specs}
-                      </span>
-                    </div>
-                  </div>
+                <div />
 
-                  {/* 4-Segment Progress Bar */}
-                  <div className="grid grid-cols-4 gap-1.5">
+                {/* Bottom HUD: Sleek 4-Segment Progress Bar */}
+                <div>
+                  <div className="grid grid-cols-4 gap-1.5 bg-black/40 backdrop-blur-md p-1.5 rounded-full border border-white/10">
                     {CHAPTERS.map((_, i) => (
                       <div
                         key={i}
@@ -360,45 +280,45 @@ export default function AboutCompanySection() {
                   ref={(el) => {
                     chapterSectionRefs.current[idx] = el;
                   }}
-                  className={`min-h-[70vh] lg:min-h-[85vh] flex flex-col justify-center py-16 sm:py-24 border-b border-white/5 last:border-b-0 transition-all duration-500 ${
+                  className={`min-h-[46vh] lg:min-h-[54vh] flex flex-col justify-center py-8 sm:py-12 border-b border-white/5 last:border-b-0 transition-all duration-500 ${
                     isActive
                       ? "opacity-100 scale-100"
-                      : "opacity-35 scale-[0.98] blur-[0.3px]"
+                      : "opacity-30 scale-[0.98] blur-[0.3px]"
                   }`}
                 >
                   {/* Chapter Header */}
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl sm:text-4xl font-mono font-black text-amber-500">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-2xl sm:text-3xl font-mono font-black text-amber-500">
                       {ch.chapterNumber}
                     </span>
-                    <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 font-semibold border-l border-white/20 pl-3">
+                    <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-400 font-semibold border-l border-white/20 pl-2.5">
                       {ch.tag}
                     </span>
                   </div>
 
                   {/* Chapter Title */}
-                  <h3 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight mt-4 leading-tight">
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white uppercase tracking-tight mt-2.5 leading-tight">
                     {ch.title}
                   </h3>
 
                   {/* Narrative Body */}
-                  <p className="mt-5 text-zinc-300 text-base sm:text-lg leading-relaxed font-normal">
+                  <p className="mt-3 text-zinc-300 text-sm sm:text-base leading-relaxed font-normal">
                     {ch.narrative}
                   </p>
 
                   {/* Key Pillars / Deliverable Points */}
-                  <div className="mt-8 space-y-4">
+                  <div className="mt-4 space-y-2.5">
                     {ch.points.map((pt, pIdx) => (
                       <div
                         key={pIdx}
-                        className="flex items-start gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-amber-500/30 transition-colors"
+                        className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/5 hover:border-amber-500/30 transition-colors"
                       >
-                        <div className="w-2 h-2 rounded-full bg-amber-400 mt-2 shrink-0 shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
                         <div>
-                          <div className="text-white text-sm font-bold uppercase tracking-wide">
+                          <div className="text-white text-xs sm:text-sm font-bold uppercase tracking-wide">
                             {pt.title}
                           </div>
-                          <div className="text-zinc-400 text-xs sm:text-sm mt-1 leading-relaxed">
+                          <div className="text-zinc-400 text-xs mt-0.5 leading-relaxed">
                             {pt.desc}
                           </div>
                         </div>
@@ -407,26 +327,25 @@ export default function AboutCompanySection() {
                   </div>
 
                   {/* Live Metric Badges */}
-                  <div className="mt-8 grid grid-cols-3 gap-3">
+                  <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
                     {ch.metrics.map((m, mIdx) => (
                       <div
                         key={mIdx}
-                        className={`p-4 rounded-xl border transition-all ${
+                        className={`p-2.5 sm:p-3 rounded-lg border transition-all ${
                           isActive
                             ? "bg-amber-500/[0.07] border-amber-500/30"
                             : "bg-white/[0.02] border-white/5"
                         }`}
                       >
-                        <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono">
+                        <div className="text-lg sm:text-xl font-black text-amber-400 font-mono">
                           {m.value}
                         </div>
-                        <div className="text-[10px] sm:text-xs text-zinc-400 uppercase tracking-wider font-mono mt-1">
+                        <div className="text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-wider font-mono mt-0.5">
                           {m.label}
                         </div>
                       </div>
                     ))}
                   </div>
-
                 </div>
               );
             })}
