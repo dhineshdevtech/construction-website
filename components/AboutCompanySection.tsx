@@ -189,17 +189,17 @@ export default function AboutCompanySection() {
   return (
     <section id="about" className="relative z-10 bg-[#090b0e] border-t border-white/10 text-white">
       {/* Unified Split-Screen Scrollytelling Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-12 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-14 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-14 relative">
           
           {/* ========================================================= */}
           {/* LEFT COLUMN: Sticky Site Photograph & Live Telemetry */}
           {/* ========================================================= */}
-          <div className="lg:col-span-6 sticky top-0 lg:h-screen flex flex-col justify-center pt-3 pb-3 sm:pt-4 sm:pb-4 lg:py-10 z-30 bg-[#090b0e]/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b lg:border-b-0 border-white/5">
-            <div className="flex items-center justify-between mb-2.5 sm:mb-4">
-              <div className="flex items-center gap-2 sm:gap-2.5">
+          <div className="lg:col-span-6 sticky top-0 lg:h-screen flex flex-col justify-center pt-2 pb-2 sm:pt-4 sm:pb-4 lg:py-10 z-30 bg-[#090b0e]/95 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none border-b lg:border-b-0 border-white/5">
+            <div className="flex items-center justify-between mb-2 sm:mb-4">
+              <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                <span className="text-amber-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest font-semibold">
+                <span className="text-amber-400 font-mono text-[10px] sm:text-xs uppercase tracking-widest font-semibold">
                   04 / About the Firm
                 </span>
               </div>
@@ -209,7 +209,7 @@ export default function AboutCompanySection() {
             </div>
 
             {/* The Sticky Site Photograph Frame with Live HUD Telemetry */}
-            <div className="relative w-full aspect-[16/9] sm:aspect-[16/10] lg:aspect-[4/3] max-h-[28vh] sm:max-h-[38vh] lg:max-h-[72vh] rounded-xl sm:rounded-2xl overflow-hidden border border-white/15 bg-black/80 shadow-2xl shadow-black/80 group">
+            <div className="relative w-full aspect-[21/9] sm:aspect-[16/9] lg:aspect-[4/3] max-h-[170px] sm:max-h-[260px] lg:max-h-[72vh] rounded-xl sm:rounded-2xl overflow-hidden border border-white/15 bg-black/80 shadow-2xl shadow-black/80 group">
               
               {/* Layered Site Photographs with Crossfade */}
               {CHAPTERS.map((ch, idx) => {
@@ -232,25 +232,22 @@ export default function AboutCompanySection() {
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                     {/* Architectural Vignette Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090b0e]/70 via-transparent to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#090b0e]/75 via-transparent to-transparent pointer-events-none" />
                   </div>
                 );
               })}
 
               {/* TELEMETRY OVERLAY / HUD LAYER */}
-              <div className="absolute inset-0 p-5 sm:p-6 flex flex-col justify-between pointer-events-none z-10 font-mono text-[11px]">
-                
-
-
+              <div className="absolute inset-0 p-3 sm:p-5 lg:p-6 flex flex-col justify-between pointer-events-none z-10 font-mono text-[11px]">
                 <div />
 
                 {/* Bottom HUD: Sleek 4-Segment Progress Bar */}
                 <div>
-                  <div className="grid grid-cols-4 gap-1.5 bg-black/40 backdrop-blur-md p-1.5 rounded-full border border-white/10">
+                  <div className="grid grid-cols-4 gap-1 sm:gap-1.5 bg-black/50 backdrop-blur-md p-1 sm:p-1.5 rounded-full border border-white/10">
                     {CHAPTERS.map((_, i) => (
                       <div
                         key={i}
-                        className={`h-1 rounded-full transition-all duration-500 ${
+                        className={`h-0.5 sm:h-1 rounded-full transition-all duration-500 ${
                           activeChapter === i
                             ? "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)]"
                             : activeChapter > i
@@ -280,45 +277,45 @@ export default function AboutCompanySection() {
                   ref={(el) => {
                     chapterSectionRefs.current[idx] = el;
                   }}
-                  className={`min-h-[46vh] lg:min-h-[54vh] flex flex-col justify-center py-8 sm:py-12 border-b border-white/5 last:border-b-0 transition-all duration-500 ${
+                  className={`min-h-[40vh] sm:min-h-[46vh] lg:min-h-[54vh] flex flex-col justify-center py-6 sm:py-10 lg:py-12 border-b border-white/5 last:border-b-0 transition-all duration-500 ${
                     isActive
                       ? "opacity-100 scale-100"
-                      : "opacity-30 scale-[0.98] blur-[0.3px]"
+                      : "opacity-35 scale-[0.99] blur-[0.2px]"
                   }`}
                 >
                   {/* Chapter Header */}
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-2xl sm:text-3xl font-mono font-black text-amber-500">
+                  <div className="flex items-center gap-2 sm:gap-2.5">
+                    <span className="text-xl sm:text-2xl lg:text-3xl font-mono font-black text-amber-500">
                       {ch.chapterNumber}
                     </span>
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-zinc-400 font-semibold border-l border-white/20 pl-2.5">
+                    <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-zinc-400 font-semibold border-l border-white/20 pl-2 sm:pl-2.5">
                       {ch.tag}
                     </span>
                   </div>
 
                   {/* Chapter Title */}
-                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white uppercase tracking-tight mt-2.5 leading-tight">
+                  <h3 className="text-lg sm:text-2xl lg:text-3xl font-black text-white uppercase tracking-tight mt-2 sm:mt-2.5 leading-tight">
                     {ch.title}
                   </h3>
 
                   {/* Narrative Body */}
-                  <p className="mt-3 text-zinc-300 text-sm sm:text-base leading-relaxed font-normal">
+                  <p className="mt-2.5 sm:mt-3 text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed font-normal">
                     {ch.narrative}
                   </p>
 
                   {/* Key Pillars / Deliverable Points */}
-                  <div className="mt-4 space-y-2.5">
+                  <div className="mt-3 sm:mt-4 space-y-2 sm:space-y-2.5">
                     {ch.points.map((pt, pIdx) => (
                       <div
                         key={pIdx}
-                        className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.03] border border-white/5 hover:border-amber-500/30 transition-colors"
+                        className="flex items-start gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-white/[0.03] border border-white/5 hover:border-amber-500/30 transition-colors"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-2 shrink-0 shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-amber-400 mt-1.5 shrink-0 shadow-[0_0_6px_rgba(251,191,36,0.6)]" />
                         <div>
                           <div className="text-white text-xs sm:text-sm font-bold uppercase tracking-wide">
                             {pt.title}
                           </div>
-                          <div className="text-zinc-400 text-xs mt-0.5 leading-relaxed">
+                          <div className="text-zinc-400 text-[11px] sm:text-xs mt-0.5 leading-relaxed">
                             {pt.desc}
                           </div>
                         </div>
@@ -327,20 +324,20 @@ export default function AboutCompanySection() {
                   </div>
 
                   {/* Live Metric Badges */}
-                  <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
+                  <div className="mt-3 sm:mt-4 grid grid-cols-3 gap-1.5 sm:gap-3">
                     {ch.metrics.map((m, mIdx) => (
                       <div
                         key={mIdx}
-                        className={`p-2.5 sm:p-3 rounded-lg border transition-all ${
+                        className={`p-2 sm:p-3 rounded-lg border transition-all ${
                           isActive
                             ? "bg-amber-500/[0.07] border-amber-500/30"
                             : "bg-white/[0.02] border-white/5"
                         }`}
                       >
-                        <div className="text-lg sm:text-xl font-black text-amber-400 font-mono">
+                        <div className="text-base sm:text-lg lg:text-xl font-black text-amber-400 font-mono truncate">
                           {m.value}
                         </div>
-                        <div className="text-[9px] sm:text-[10px] text-zinc-400 uppercase tracking-wider font-mono mt-0.5">
+                        <div className="text-[8px] sm:text-[9px] lg:text-[10px] text-zinc-400 uppercase tracking-wider font-mono mt-0.5 leading-tight line-clamp-2">
                           {m.label}
                         </div>
                       </div>

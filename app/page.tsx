@@ -2,6 +2,7 @@ import HeroConstructionScroll from "@/components/HeroConstructionScroll";
 import FeaturedProjectsRail from "@/components/FeaturedProjectsRail";
 import ServicesCylinderScroll from "@/components/ServicesCylinderScroll";
 import AboutCompanySection from "@/components/AboutCompanySection";
+import ProcessRoadmapSection from "@/components/ProcessRoadmapSection";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
@@ -20,56 +21,8 @@ export default function Home() {
         {/* 4. ABOUT THE COMPANY: Split-Screen Scrollytelling & Telemetry HUD */}
         <AboutCompanySection />
 
-        {/* 5. PROCESS ROADMAP */}
-        <section id="phases" className="py-16 sm:py-24 lg:py-28 px-4 sm:px-6 bg-[#0a0b0d] border-t border-white/10">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 lg:mb-20">
-              <span className="text-amber-400 font-mono text-[11px] sm:text-xs uppercase tracking-widest font-semibold">
-                05 / The Process
-              </span>
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight mt-2 sm:mt-3">
-                Precision at Every Stage
-              </h2>
-              <p className="text-zinc-400 mt-2.5 sm:mt-4 text-xs sm:text-sm md:text-base">
-                Weekly digital progress audits, live drone inspections, and transparent fixed-cost milestones.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-              <div className="border-t-2 border-amber-500/40 pt-4 sm:pt-6">
-                <div className="text-3xl sm:text-4xl font-black text-zinc-700 font-mono mb-1.5 sm:mb-2">01</div>
-                <h4 className="text-base sm:text-lg font-bold text-white uppercase">Site & Soil Dynamics</h4>
-                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
-                  Geotechnical borehole testing, water table analysis, and CMDA compliance approval.
-                </p>
-              </div>
-
-              <div className="border-t-2 border-amber-500/40 pt-4 sm:pt-6">
-                <div className="text-3xl sm:text-4xl font-black text-zinc-700 font-mono mb-1.5 sm:mb-2">02</div>
-                <h4 className="text-base sm:text-lg font-bold text-white uppercase">BIM & 3D Engineering</h4>
-                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
-                  Full virtual structural modeling, clash detection, and photorealistic client walkthroughs.
-                </p>
-              </div>
-
-              <div className="border-t-2 border-amber-500/40 pt-4 sm:pt-6">
-                <div className="text-3xl sm:text-4xl font-black text-zinc-700 font-mono mb-1.5 sm:mb-2">03</div>
-                <h4 className="text-base sm:text-lg font-bold text-white uppercase">Superstructure Build</h4>
-                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
-                  Ready-mix concrete batches, ultrasonic rebar testing, and laser-guided leveling.
-                </p>
-              </div>
-
-              <div className="border-t-2 border-amber-500 pt-4 sm:pt-6">
-                <div className="text-3xl sm:text-4xl font-black text-amber-500 font-mono mb-1.5 sm:mb-2">04</div>
-                <h4 className="text-base sm:text-lg font-bold text-white uppercase">Turnkey Handover</h4>
-                <p className="text-xs text-zinc-400 mt-1.5 sm:mt-2 leading-relaxed">
-                  Complete snag-free inspection, 10-year structural warranty, and ceremonial keys delivery.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* 5. PROCESS ROADMAP: Interactive 5-Stage Construction Protocol */}
+        <ProcessRoadmapSection />
 
         {/* 6. CTA / CONTACT SECTION */}
         <section id="contact" className="relative py-20 sm:py-28 lg:py-32 px-4 sm:px-6 bg-gradient-to-b from-[#0e1014] to-[#0a0b0d] border-t border-white/10 text-center">
