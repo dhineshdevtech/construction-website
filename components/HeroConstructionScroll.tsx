@@ -238,14 +238,23 @@ export default function HeroConstructionScroll() {
     >
       {/* Sticky Canvas & Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between select-none">
-        {/* The Canvas Background */}
+        {/* The Canvas Background with graceful fade-in */}
         <canvas
           ref={canvasRef}
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700 ${
+            isReady ? "opacity-100" : "opacity-0"
+          }`}
         />
 
         {/* Ambient Dark Gradient Vignette for readability */}
         <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#0a0b0d]/75 via-transparent via-50% to-[#0a0b0d]/90" />
+
+        {/* Initial loading screen until first frame ready */}
+        {!isReady && (
+          <div className="absolute inset-0 z-30 flex items-center justify-center bg-[#0a0b0d] text-amber-400 font-mono text-xs tracking-widest uppercase">
+            Loading Visual Engine...
+          </div>
+        )}
 
         {/* TOP: Fixed Navigation Header */}
         <header className="relative z-20 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">

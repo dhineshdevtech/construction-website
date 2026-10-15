@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw media & processing scripts (not needed for deployment)
+*.mp4
+extract_frames.py
+
