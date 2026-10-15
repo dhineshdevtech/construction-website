@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from "react";
 
 const NAV_LINKS = [
-  { label: "Projects", href: "#projects", num: "01" },
-  { label: "Capabilities", href: "#services", num: "02" },
-  { label: "The Firm", href: "#about", num: "03" },
-  { label: "Process", href: "#process", num: "04" },
-  { label: "Why Us", href: "#why-us", num: "05" },
-  { label: "Contact", href: "#contact", num: "06" },
+  { label: "Projects", href: "#projects" },
+  { label: "Capabilities", href: "#services" },
+  { label: "The Firm", href: "#about" },
+  { label: "Process", href: "#process" },
+  { label: "Why Us", href: "#why-us" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -81,7 +81,7 @@ export default function Navbar() {
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 text-xs font-mono uppercase tracking-wider text-zinc-300">
+          <nav className="hidden lg:flex items-center gap-8 text-xs font-mono uppercase tracking-wider text-zinc-300 font-medium">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -90,12 +90,9 @@ export default function Navbar() {
                   e.preventDefault();
                   handleLinkClick(link.href);
                 }}
-                className="hover:text-amber-400 transition-colors flex items-center gap-1.5 group py-1"
+                className="hover:text-amber-400 transition-colors py-1"
               >
-                <span className="text-[9px] text-zinc-500 group-hover:text-amber-400 transition-colors">
-                  {link.num}
-                </span>
-                <span>{link.label}</span>
+                {link.label}
               </a>
             ))}
           </nav>
@@ -166,8 +163,8 @@ export default function Navbar() {
               className="flex items-center justify-between py-3.5 border-b border-white/5 text-lg font-black text-white uppercase tracking-tight hover:text-amber-400 active:text-amber-400 transition-colors"
             >
               <span>{link.label}</span>
-              <span className="text-xs font-mono text-amber-500 font-bold">
-                {link.num} →
+              <span className="text-amber-500 font-bold text-sm">
+                →
               </span>
             </a>
           ))}

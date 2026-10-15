@@ -47,42 +47,35 @@ const PHASES: Phase[] = [
 export default function HeroConstructionScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const heroTextRef = useRef<HTMLDivElement>(null);
   const [currentPhase, setCurrentPhase] = useState<Phase>(PHASES[0]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
     if (!ctx) return;
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
 
-    // We hold either ImageBitmap (GPU decoded) or HTMLImageElement as fallback
+    // Pre-allocated frame array: ImageBitmap (GPU decoded) or HTMLImageElement
     const frames: (ImageBitmap | HTMLImageElement | null)[] = new Array(TOTAL_FRAMES).fill(null);
-    let loadedCount = 0;
+    let lastRenderedBitmap: ImageBitmap | HTMLImageElement | null = null;
     let targetProgress = 0;
     let currentProgress = 0;
     let lastDrawnIndex = -1;
-    let rafId: number;
+    let lastPhaseIdx = 0;
+    let rafId = 0;
+    let isLoopRunning = false;
+    let isHeroVisible = true;
 
     const pad = (n: number) => ("00" + n).slice(-3);
 
-    // Immediately load and paint frame 0 so the canvas is never empty
-    const firstImg = new Image();
-    firstImg.src = `/sequence/frame_${pad(0)}.webp`;
-    firstImg.onload = () => {
-      frames[0] = firstImg;
-      renderFrame(0, true);
-    };
-    if (firstImg.complete && firstImg.naturalWidth > 0) {
-      frames[0] = firstImg;
-    }
-
-    // High-DPI canvas sizing
+    // High-DPI canvas sizing capped at 1.5x to eliminate GPU fill bottleneck
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const w = window.innerWidth;
       const h = window.innerHeight;
       canvas.width = Math.round(w * dpr);
@@ -92,28 +85,20 @@ export default function HeroConstructionScroll() {
       renderFrame(Math.round(currentProgress * (TOTAL_FRAMES - 1)), true);
     };
 
-    // Fast, zero-overhead render function
+    // O(1) Fast, zero-overhead render function
     const renderFrame = (frameIndex: number, force = false) => {
       const idx = Math.max(0, Math.min(TOTAL_FRAMES - 1, frameIndex));
       
       // If frame didn't change and not a forced resize redraw, skip to save GPU
       if (!force && idx === lastDrawnIndex) return;
 
-      // Find nearest loaded frame if this exact one is still buffering
+      // O(1) Direct Lookup with Instant Fallback
       let img = frames[idx];
       if (!img) {
-        for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
-          if (idx - offset >= 0 && frames[idx - offset]) {
-            img = frames[idx - offset];
-            break;
-          }
-          if (idx + offset < TOTAL_FRAMES && frames[idx + offset]) {
-            img = frames[idx + offset];
-            break;
-          }
-        }
+        img = lastRenderedBitmap;
       }
       if (!img) return;
+      lastRenderedBitmap = img;
 
       const cw = canvas.width;
       const ch = canvas.height;
@@ -133,12 +118,25 @@ export default function HeroConstructionScroll() {
         dw = ch * imgRatio;
       }
 
-      const dx = (cw - dw) / 2;
-      const dy = (ch - dh) / 2;
+      const dx = (cw - dw) * 0.5;
+      const dy = (ch - dh) * 0.5;
 
       ctx.drawImage(img, dx, dy, dw, dh);
       lastDrawnIndex = idx;
     };
+
+    // Immediately load and paint frame 0 so the canvas is never blank
+    const firstImg = new Image();
+    firstImg.src = `/sequence/frame_${pad(0)}.webp`;
+    firstImg.onload = () => {
+      frames[0] = firstImg;
+      lastRenderedBitmap = firstImg;
+      renderFrame(0, true);
+    };
+    if (firstImg.complete && firstImg.naturalWidth > 0) {
+      frames[0] = firstImg;
+      lastRenderedBitmap = firstImg;
+    }
 
     // Asynchronous loader with GPU ImageBitmap pre-decoding
     const loadFrame = async (i: number) => {
@@ -149,11 +147,13 @@ export default function HeroConstructionScroll() {
           const blob = await res.blob();
           const bitmap = await createImageBitmap(blob);
           frames[i] = bitmap;
+          if (!lastRenderedBitmap) lastRenderedBitmap = bitmap;
         } else {
           await new Promise<void>((resolve, reject) => {
             const im = new Image();
             im.onload = () => {
               frames[i] = im;
+              if (!lastRenderedBitmap) lastRenderedBitmap = im;
               resolve();
             };
             im.onerror = reject;
@@ -161,14 +161,15 @@ export default function HeroConstructionScroll() {
           });
         }
       } catch {
-        // Fallback standard image
         const im = new Image();
-        im.onload = () => { frames[i] = im; };
+        im.onload = () => { 
+          frames[i] = im;
+          if (!lastRenderedBitmap) lastRenderedBitmap = im;
+        };
         im.src = url;
       }
 
-      loadedCount++;
-      if (i === 0 || loadedCount === 1) {
+      if (i === 0) {
         resizeCanvas();
       }
     };
@@ -179,11 +180,10 @@ export default function HeroConstructionScroll() {
       for (let i = 0; i < 15; i++) priorityIndices.push(i);
       await Promise.all(priorityIndices.map(loadFrame));
 
-      // Priority 2: load the rest in parallel chunks
+      // Priority 2: load the rest in parallel batches of 6
       const remaining: number[] = [];
       for (let i = 15; i < TOTAL_FRAMES; i++) remaining.push(i);
 
-      // Fetch in concurrency pool of 6
       const poolSize = 6;
       for (let i = 0; i < remaining.length; i += poolSize) {
         const batch = remaining.slice(i, i + poolSize);
@@ -193,11 +193,45 @@ export default function HeroConstructionScroll() {
 
     startLoading();
 
-    // Scroll progress handler
-    const handleScroll = () => {
-      const container = containerRef.current;
-      if (!container) return;
+    // Responsive cinematic damping loop with auto-sleep
+    const loop = () => {
+      if (!isHeroVisible) {
+        isLoopRunning = false;
+        return;
+      }
 
+      const diff = targetProgress - currentProgress;
+      if (Math.abs(diff) > 0.0001) {
+        currentProgress += diff * 0.16; // Snappy, zero-delay Apple-style damping
+        const targetFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
+        renderFrame(targetFrame);
+
+        // Direct DOM update for hero text fade & translate (0 React overhead)
+        if (heroTextRef.current) {
+          const op = Math.max(0, 1 - currentProgress * 3.0);
+          heroTextRef.current.style.opacity = `${op}`;
+          heroTextRef.current.style.transform = `translateY(-${currentProgress * 70}px)`;
+          heroTextRef.current.style.display = op <= 0.01 ? "none" : "";
+        }
+
+        rafId = requestAnimationFrame(loop);
+      } else {
+        // Settled: render exact target and sleep
+        currentProgress = targetProgress;
+        renderFrame(Math.round(currentProgress * (TOTAL_FRAMES - 1)));
+        isLoopRunning = false;
+      }
+    };
+
+    const startLoop = () => {
+      if (!isLoopRunning && isHeroVisible) {
+        isLoopRunning = true;
+        rafId = requestAnimationFrame(loop);
+      }
+    };
+
+    // Scroll progress handler: O(1) calculation, 0 React state updates on scroll
+    const handleScroll = () => {
       const rect = container.getBoundingClientRect();
       const totalScrollable = container.offsetHeight - window.innerHeight;
       if (totalScrollable <= 0) return;
@@ -205,36 +239,44 @@ export default function HeroConstructionScroll() {
       const rawProgress = -rect.top / totalScrollable;
       const clamped = Math.min(1, Math.max(0, rawProgress));
       targetProgress = clamped;
-      setScrollProgress(clamped);
 
-      // Determine active phase
-      const phase = PHASES.find(
-        (p) => clamped >= p.range[0] && (clamped < p.range[1] || p.range[1] === 1.0)
-      ) || PHASES[0];
-      setCurrentPhase(phase);
-    };
-
-    // Responsive cinematic damping loop
-    const loop = () => {
-      const diff = targetProgress - currentProgress;
-      if (Math.abs(diff) > 0.0001) {
-        currentProgress += diff * 0.10;
-        const targetFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
-        renderFrame(targetFrame);
+      // O(1) Phase index math: updates React state ONLY when phase boundary changes (4 times total!)
+      const phaseIdx = clamped < 0.2 ? 0 : clamped < 0.45 ? 1 : clamped < 0.7 ? 2 : clamped < 0.9 ? 3 : 4;
+      if (phaseIdx !== lastPhaseIdx) {
+        lastPhaseIdx = phaseIdx;
+        setCurrentPhase(PHASES[phaseIdx]);
       }
-      rafId = requestAnimationFrame(loop);
+
+      startLoop();
     };
+
+    // IntersectionObserver: pauses canvas animation completely when out of viewport
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isHeroVisible = entry.isIntersecting;
+        if (isHeroVisible) {
+          startLoop();
+        } else {
+          isLoopRunning = false;
+          cancelAnimationFrame(rafId);
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(container);
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", resizeCanvas);
 
     handleScroll();
     resizeCanvas();
-    rafId = requestAnimationFrame(loop);
+    startLoop();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", resizeCanvas);
+      observer.disconnect();
       cancelAnimationFrame(rafId);
     };
   }, []);
@@ -267,13 +309,10 @@ export default function HeroConstructionScroll() {
         {/* Top spacer for global fixed Navbar */}
         <div className="w-full h-16 sm:h-20 pointer-events-none" />
 
-        {/* CENTER: Main Hero Text (Slowly fades as scroll begins) */}
+        {/* CENTER: Main Hero Text (Smoothly faded via direct DOM engine with 0 React re-renders) */}
         <div
-          className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center my-auto transition-transform duration-300 pointer-events-none"
-          style={{
-            opacity: Math.max(0, 1 - scrollProgress * 3.0),
-            transform: `translateY(-${scrollProgress * 70}px)`,
-          }}
+          ref={heroTextRef}
+          className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center my-auto pointer-events-none will-change-[opacity,transform]"
         >
           <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3 sm:py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-[10px] sm:text-xs tracking-widest uppercase mb-3 sm:mb-4">
             <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-amber-400 animate-pulse" />
