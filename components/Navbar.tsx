@@ -6,18 +6,18 @@ const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
   { label: "Capabilities", href: "#services" },
   { label: "The Firm", href: "#about" },
-  { label: "Process", href: "#process" },
   { label: "Why Us", href: "#why-us" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isAtBeginning, setIsAtBeginning] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      // Navbar is ONLY visible at the beginning of the site (< 100px scroll)
+      setIsAtBeginning(window.scrollY < 100);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -48,16 +48,16 @@ export default function Navbar() {
 
   return (
     <>
-      {/* GLOBAL FIXED NAVBAR */}
+      {/* NAVBAR AT THE BEGINNING (Hidden in all subsequent sections) */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || mobileMenuOpen
-            ? "bg-[#08090c]/95 backdrop-blur-md border-b border-white/10 shadow-2xl py-3 sm:py-3.5"
-            : "bg-gradient-to-b from-[#08090c]/80 via-[#08090c]/40 to-transparent py-4 sm:py-5"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out py-4 sm:py-5 ${
+          isAtBeginning || mobileMenuOpen
+            ? "opacity-100 translate-y-0 pointer-events-auto bg-gradient-to-b from-[#08090c]/85 via-[#08090c]/40 to-transparent"
+            : "opacity-0 -translate-y-8 pointer-events-none"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-          
+
           {/* Brand Logo & Name */}
           <a
             href="#"
@@ -119,19 +119,16 @@ export default function Navbar() {
               aria-label="Toggle Navigation Menu"
             >
               <span
-                className={`w-5 h-0.5 bg-current transition-all duration-300 ${
-                  mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-                }`}
+                className={`w-5 h-0.5 bg-current transition-all duration-300 ${mobileMenuOpen ? "rotate-45 translate-y-2" : ""
+                  }`}
               />
               <span
-                className={`w-5 h-0.5 bg-current transition-all duration-300 ${
-                  mobileMenuOpen ? "opacity-0" : ""
-                }`}
+                className={`w-5 h-0.5 bg-current transition-all duration-300 ${mobileMenuOpen ? "opacity-0" : ""
+                  }`}
               />
               <span
-                className={`w-5 h-0.5 bg-current transition-all duration-300 ${
-                  mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-                }`}
+                className={`w-5 h-0.5 bg-current transition-all duration-300 ${mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+                  }`}
               />
             </button>
           </div>
@@ -141,11 +138,10 @@ export default function Navbar() {
 
       {/* MOBILE FULL-SCREEN NAVIGATION DRAWER */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden bg-[#07080a]/98 backdrop-blur-2xl transition-all duration-300 flex flex-col justify-between pt-24 pb-8 px-6 ${
-          mobileMenuOpen
+        className={`fixed inset-0 z-40 lg:hidden bg-[#07080a]/98 backdrop-blur-2xl transition-all duration-300 flex flex-col justify-between pt-24 pb-8 px-6 ${mobileMenuOpen
             ? "opacity-100 pointer-events-auto translate-y-0"
             : "opacity-0 pointer-events-none -translate-y-4"
-        }`}
+          }`}
       >
         {/* Nav Links List */}
         <div className="flex flex-col space-y-1">

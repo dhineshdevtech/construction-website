@@ -79,7 +79,7 @@ export default function ContactAndFooterSection() {
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               <span className="text-amber-400 font-mono text-[10px] sm:text-xs uppercase tracking-widest font-semibold">
-                07 / Direct Executive Concierge
+                06 / Direct Executive Concierge
               </span>
             </div>
             <h2 className="text-2xl sm:text-4xl md:text-6xl font-black text-white uppercase tracking-tight leading-[1.05]">
