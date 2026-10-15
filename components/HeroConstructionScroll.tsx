@@ -48,8 +48,6 @@ export default function HeroConstructionScroll() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
-  const [loadProgress, setLoadProgress] = useState<number>(0);
-  const [isReady, setIsReady] = useState<boolean>(false);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [currentPhase, setCurrentPhase] = useState<Phase>(PHASES[0]);
 
@@ -155,11 +153,7 @@ export default function HeroConstructionScroll() {
       }
 
       loadedCount++;
-      const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
-      setLoadProgress(pct);
-
-      if (i === 0 || loadedCount === 5) {
-        setIsReady(true);
+      if (i === 0 || loadedCount === 1) {
         resizeCanvas();
       }
     };
@@ -205,11 +199,11 @@ export default function HeroConstructionScroll() {
       setCurrentPhase(phase);
     };
 
-    // Soft, cinematic damping loop (0.07 gives slow, heavy, buttery glide)
+    // Responsive cinematic damping loop
     const loop = () => {
       const diff = targetProgress - currentProgress;
       if (Math.abs(diff) > 0.0001) {
-        currentProgress += diff * 0.07;
+        currentProgress += diff * 0.10;
         const targetFrame = Math.round(currentProgress * (TOTAL_FRAMES - 1));
         renderFrame(targetFrame);
       }
@@ -234,27 +228,18 @@ export default function HeroConstructionScroll() {
     <div
       ref={containerRef}
       className="relative w-full bg-[#0a0b0d]"
-      style={{ height: "850vh" }} // Extended to 850vh for majestic, slow-paced construction reveal!
+      style={{ height: "680vh" }} // Tuned to 680vh for smooth, natural construction progression
     >
       {/* Sticky Canvas & Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between select-none">
-        {/* The Canvas Background with graceful fade-in */}
+        {/* The Canvas Background */}
         <canvas
           ref={canvasRef}
-          className={`absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-700 ${
-            isReady ? "opacity-100" : "opacity-0"
-          }`}
+          className="absolute inset-0 w-full h-full object-cover z-0"
         />
 
         {/* Ambient Dark Gradient Vignette for readability */}
         <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-b from-[#0a0b0d]/75 via-transparent via-50% to-[#0a0b0d]/90" />
-
-        {/* Initial loading screen until first frame ready */}
-        {!isReady && (
-          <div className="absolute inset-0 z-30 flex items-center justify-center bg-[#0a0b0d] text-amber-400 font-mono text-xs tracking-widest uppercase">
-            Loading Visual Engine...
-          </div>
-        )}
 
         {/* TOP: Fixed Navigation Header */}
         <header className="relative z-20 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
@@ -321,11 +306,6 @@ export default function HeroConstructionScroll() {
                 <span className="text-xs text-zinc-400 font-mono">
                   {Math.round(scrollProgress * 100)}% COMPLETE
                 </span>
-                {loadProgress < 100 && (
-                  <span className="text-[10px] text-zinc-500 font-mono">
-                    (Buffering HD {loadProgress}%)
-                  </span>
-                )}
               </div>
               <h2 className="text-lg md:text-2xl font-bold text-white tracking-tight">
                 {currentPhase.title}
@@ -350,15 +330,6 @@ export default function HeroConstructionScroll() {
             </div>
           </div>
 
-          {/* Scroll Cue */}
-          <div
-            className="flex flex-col items-center justify-center mt-4 transition-opacity duration-300"
-            style={{ opacity: Math.max(0, 1 - scrollProgress * 4) }}
-          >
-            <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-400 animate-bounce">
-              Scroll Slowly to Construct ↓
-            </div>
-          </div>
         </div>
       </div>
     </div>
