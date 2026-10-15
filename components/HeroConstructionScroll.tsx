@@ -283,6 +283,7 @@ export default function HeroConstructionScroll() {
           <div className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase text-zinc-300">
             <a href="#about" className="hover:text-amber-400 transition-colors">Vision</a>
             <a href="#portfolio" className="hover:text-amber-400 transition-colors">Projects</a>
+            <a href="#services" className="hover:text-amber-400 transition-colors">Services</a>
             <a href="#phases" className="hover:text-amber-400 transition-colors">Process</a>
             <a href="#contact" className="hover:text-amber-400 transition-colors">Contact</a>
           </div>

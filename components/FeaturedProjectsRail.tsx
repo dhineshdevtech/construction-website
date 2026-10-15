@@ -7,7 +7,7 @@ interface Project {
   id: string;
   number: string;
   title: string;
-  category: "Residential Buildings" | "Commercial Complexes" | "Industrial Construction" | "Infrastructure Projects";
+  category: "Residential Buildings" | "Commercial Complexes" | "Industrial Construction" | "Infrastructure Projects" | "Luxury Hospitality" | "Institutional & Cultural";
   location: string;
   scale: string;
   status: "Completed" | "Ongoing";
@@ -86,6 +86,40 @@ const PROJECTS: Project[] = [
     ],
     image: "/projects/infrastructure.jpg",
   },
+  {
+    id: "hospitality",
+    number: "05",
+    title: "The Coromandel Sands Pavilion & Spa",
+    category: "Luxury Hospitality",
+    location: "Mahabalipuram Coastal Strip, Chennai",
+    scale: "140,000 Sq. Ft. · 5-Star Beachfront Sanctuary",
+    status: "Completed",
+    statusDetail: "Operational Luxury Handover",
+    yearOrMilestone: "2025",
+    specs: [
+      "Hand-carved granite stone porticos & Dravidian-modern fusion",
+      "Open-air biophilic water pavilions with reflection fire bowls",
+      "Integrated seawater reverse-osmosis desalination plant",
+    ],
+    image: "/projects/hospitality.jpg",
+  },
+  {
+    id: "institutional",
+    number: "06",
+    title: "AURA International Science Hub",
+    category: "Institutional & Cultural",
+    location: "Guindy Knowledge Corridor, Chennai",
+    scale: "260,000 Sq. Ft. · Iconic Kinetic Dome",
+    status: "Ongoing",
+    statusDetail: "65% Glazed Geodesic Dome Assembled",
+    yearOrMilestone: "Q2 2027",
+    specs: [
+      "60m clear-span geodesic structural steel sphere",
+      "Central lotus water amphitheater & reflecting lagoon",
+      "Dynamic photovoltaic glass envelope with BIPV solar power",
+    ],
+    image: "/projects/institutional.jpg",
+  },
 ];
 
 export default function FeaturedProjectsRail() {
@@ -136,7 +170,7 @@ export default function FeaturedProjectsRail() {
       ref={containerRef}
       id="portfolio"
       className="relative bg-[#07080a] text-zinc-100 select-none border-t border-white/10"
-      style={{ height: "420vh" }} // 4.2x viewport runway for smooth horizontal glide
+      style={{ height: "560vh" }} // 5.6x viewport runway for smooth 6-project glide
     >
       {/* Sticky Fullscreen Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-8 px-6 md:px-12">
@@ -285,14 +319,14 @@ export default function FeaturedProjectsRail() {
 
           {/* Interactive Progress Line */}
           <div className="w-full sm:w-80 flex items-center gap-3">
-            <span className="text-[10px] font-mono uppercase text-zinc-500">Residential</span>
+            <span className="text-[10px] font-mono uppercase text-zinc-500">01 / Residential</span>
             <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all duration-150"
                 style={{ width: `${Math.max(6, scrollProgress * 100)}%` }}
               />
             </div>
-            <span className="text-[10px] font-mono uppercase text-amber-400">Infra</span>
+            <span className="text-[10px] font-mono uppercase text-amber-400">06 / Campus</span>
           </div>
 
           <div className="hidden md:flex items-center gap-2 text-[11px] font-mono uppercase text-zinc-500">
