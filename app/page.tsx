@@ -1,4 +1,5 @@
 import HeroConstructionScroll from "@/components/HeroConstructionScroll";
+import FeaturedProjectsRail from "@/components/FeaturedProjectsRail";
 import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Home() {
@@ -8,7 +9,10 @@ export default function Home() {
       {/* 1. HERO: Interactive Scroll-Scrubbed Construction Animation */}
       <HeroConstructionScroll />
 
-      {/* 2. STATS & OVERVIEW SECTION */}
+      {/* 2. FEATURED PROJECTS: Horizontal Sticky Parallax Rail */}
+      <FeaturedProjectsRail />
+
+      {/* 3. STATS & OVERVIEW SECTION */}
       <section id="about" className="relative z-10 py-28 px-6 border-t border-white/10 bg-[#0e1014]">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20">
